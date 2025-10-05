@@ -463,6 +463,55 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        /* Language Dropdown */
+        .language-toggle {
+            margin-top: 12px;
+            padding: 10px 20px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .language-toggle:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.6);
+        }
+
+        .language-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-top: 15px;
+        }
+
+        .language-list.active {
+            max-height: 300px;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .language-grid span {
+            padding: 8px 12px;
+            background: rgba(102, 126, 234, 0.15);
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
         /* Steps */
         .steps-grid {
             display: grid;
@@ -648,7 +697,7 @@
                 <span>Download Now</span>
                 <span>⬇</span>
             </a>
-            <div class="user-count">🔥 Join 40K+ users today!</div>
+            <div class="user-count">🔥 Join 40K+ users across 18 countries!</div>
             <div class="platform-note">Currently available for Android only</div>
         </div>
     </section>
@@ -699,8 +748,23 @@
                     <div class="feature-item-inline">
                         <div class="feature-icon-small">🌍</div>
                         <div>
-                            <h3>6+ Languages (More Coming Soon!)</h3>
+                            <h3>10 Languages (More Coming Soon!)</h3>
                             <p>Convert text into natural-sounding speech in multiple languages</p>
+                            <button class="language-toggle" onclick="toggleLanguages()">View Supported Languages ▼</button>
+                            <div class="language-list" id="languageList">
+                                <div class="language-grid">
+                                    <span>🇬🇧 English</span>
+                                    <span>🇵🇹 Portuguese</span>
+                                    <span>🇪🇸 Spanish</span>
+                                    <span>🇩🇪 German</span>
+                                    <span>🇫🇷 French</span>
+                                    <span>🇸🇦 Arabic</span>
+                                    <span>🇮🇳 Hindi</span>
+                                    <span>🇯🇵 Japanese</span>
+                                    <span>🇷🇺 Russian</span>
+                                    <span>🇮🇹 Italian</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="feature-item-inline">
@@ -853,6 +917,20 @@
             <p>Empowering accessibility through technology</p>
         </div>
     </footer>
+
+    <script>
+        function toggleLanguages() {
+            const list = document.getElementById('languageList');
+            const button = document.querySelector('.language-toggle');
+            
+            if (list.classList.contains('active')) {
+                list.classList.remove('active');
+                button.textContent = 'View Supported Languages ▼';
+            } else {
+                list.classList.add('active');
+                button.textContent = 'Hide Languages ▲';
+            }
+        }
+    </script>
 </body>
 </html>
-
