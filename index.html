@@ -659,72 +659,98 @@
             const chartDom = document.getElementById('world-map');
             const myChart = echarts.init(chartDom);
             
-            const countries = [
-                {name: 'United States', value: 12000},
-                {name: 'United Kingdom', value: 8000},
-                {name: 'Germany', value: 5000},
-                {name: 'France', value: 4000},
-                {name: 'Spain', value: 3000},
-                {name: 'Italy', value: 2500},
-                {name: 'Canada', value: 2000},
-                {name: 'Australia', value: 1500},
-                {name: 'Brazil', value: 1000},
-                {name: 'Mexico', value: 800},
-                {name: 'India', value: 600},
-                {name: 'Japan', value: 500},
-                {name: 'South Korea', value: 400},
-                {name: 'Netherlands', value: 300},
-                {name: 'Belgium', value: 200},
-                {name: 'Sweden', value: 150},
-                {name: 'Norway', value: 100},
-                {name: 'Denmark', value: 50}
+            const userDistribution = [
+                { name: 'United States', value: 12000 },
+                { name: 'United Kingdom', value: 8000 },
+                { name: 'Germany', value: 5000 },
+                { name: 'France', value: 4000 },
+                { name: 'Spain', value: 3000 },
+                { name: 'Italy', value: 2500 },
+                { name: 'Canada', value: 2000 },
+                { name: 'Australia', value: 1500 },
+                { name: 'Brazil', value: 1000 },
+                { name: 'Mexico', value: 800 },
+                { name: 'India', value: 600 },
+                { name: 'Japan', value: 500 },
+                { name: 'South Korea', value: 400 },
+                { name: 'Netherlands', value: 300 },
+                { name: 'Belgium', value: 200 },
+                { name: 'Sweden', value: 150 },
+                { name: 'Norway', value: 100 },
+                { name: 'Denmark', value: 50 }
             ];
             
             const option = {
+                backgroundColor: 'transparent',
                 tooltip: {
                     trigger: 'item',
-                    formatter: function(params) {
-                        if (params.value) {
-                            return params.name + ': ' + params.value.toLocaleString() + ' users';
-                        }
-                        return params.name;
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        const value = params.value || 0;
+                        return params.seriesName + '<br/>' + params.name + ': ' + value.toLocaleString() + ' users';
                     }
                 },
                 visualMap: {
+                    left: 'right',
                     min: 0,
                     max: 12000,
-                    text: ['High', 'Low'],
-                    realtime: false,
-                    calculable: true,
                     inRange: {
-                        color: ['#e0f2f1', '#4ecdc4', '#ff6b6b']
-                    }
+                        color: [
+                            '#e0f2f1',
+                            '#b2dfdb',
+                            '#80cbc4',
+                            '#4db6ac',
+                            '#26a69a',
+                            '#00897b',
+                            '#00796b',
+                            '#ff6b6b'
+                        ]
+                    },
+                    text: ['High', 'Low'],
+                    calculable: true
                 },
                 series: [
                     {
                         name: 'Say It Users',
                         type: 'map',
-                        map: 'world',
                         roam: true,
+                        map: 'world',
                         emphasis: {
                             label: {
                                 show: true
+                            },
+                            itemStyle: {
+                                areaColor: '#ff6b6b',
+                                borderWidth: 1.5
                             }
                         },
-                        data: countries
+                        itemStyle: {
+                            areaColor: '#f5f5f5',
+                            borderColor: '#d0d0d0',
+                            borderWidth: 0.5
+                        },
+                        data: userDistribution
                     }
                 ]
             };
-            
-            fetch('https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/map/js/world.js')
-                .then(() => {
+
+            // Load world map
+            fetch('https://cdn.jsdelivr.net/npm/echarts@5.4.3/map/json/world.json')
+                .then(response => response.json())
+                .then(worldJson => {
+                    echarts.registerMap('world', worldJson);
                     myChart.setOption(option);
                 })
-                .catch(() => {
-                    chartDom.innerHTML = '<div class="flex items-center justify-center h-full text-gray-500"><p>Map visualization loading...</p></div>';
+                .catch(error => {
+                    console.error('Error loading map:', error);
+                    // Fallback visualization
+                    chartDom.innerHTML = '<div class="flex items-center justify-center h-full"><div class="text-center"><i class="fas fa-globe text-6xl text-gray-300 mb-4"></i><p class="text-gray-500">Map visualization available in production</p></div></div>';
                 });
             
-            window.addEventListener('resize', () => myChart.resize());
+            window.addEventListener('resize', () => {
+                myChart.resize();
+            });
         }
         
         // Voice customization demo
