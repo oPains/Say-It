@@ -161,16 +161,54 @@
             animation: slideInRight 0.3s ease-out;
         }
         
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
+       @keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.download-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #fff;
+    color: #2d3748;
+    padding: 1rem 1.5rem;
+    border-radius: .75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 9999;
+    animation: slideInRight .35s ease-out;
+}
+
+.download-toast.hide {
+    animation: slideOutRight .35s ease-in forwards;
+}
+
+.spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 3px solid #e2e8f0;
+    border-top-color: #ff6b6b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(110%); opacity: 0; }
+}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -554,44 +592,6 @@
         </div>
     </footer>
 
-    <script>
-        // Download functionality
-        const downloadUrl = 'https://github.com/oPains/Say-It/releases/download/V1.0.0/SayIt.apk';
-        
-        function showDownloadNotification() {
-            const notification = document.createElement('div');
-            notification.className = 'download-notification';
-            notification.innerHTML = `
-                <div class="spinner"></div>
-                <div>
-                    <div class="font-semibold">Downloading Say It...</div>
-                    <div class="text-sm opacity-90">Your download will begin shortly</div>
-                </div>
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('hide');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        function initiateDownload() {
-            showDownloadNotification();
-            
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = 'SayIt.apk';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-        
-         // Attach download handlers
-        document.querySelectorAll('.download-btn').forEach(btn =>
-            btn.addEventListener('click', initiateDownload)
-        );
-    </script>
 
     <!-- Main JavaScript -->
     <script src="main.js"></script>
