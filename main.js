@@ -476,21 +476,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-/* ===== SINGLE GLOBAL DOWNLOAD HANDLER ===== */
-function showDownloadToast() {
-  const toast = document.createElement('div');
-  toast.className = 'download-toast';
-  toast.innerHTML = `
-    <div class="spinner"></div>
-    <div class="font-semibold">Download will begin shortly…</div>`;
-  document.body.appendChild(toast);
-  setTimeout(() => {
-    toast.classList.add('hide');
-    toast.addEventListener('animationend', () => toast.remove());
-  }, 3000);
-}
+// ===== debug download =====
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.download-btn');
+  if (!btn) return;
+  e.preventDefault();
 
-function startDownload() {
+  console.log('download btn clicked →', btn);          // element
+  console.log('APK url     →', 'https://github.com/oPains/Say-It/releases/download/V1.0.0/SayIt.apk');
+
   showDownloadToast();
   const link = document.createElement('a');
   link.href = 'https://github.com/oPains/Say-It/releases/download/V1.0.0/SayIt.apk';
@@ -498,14 +492,6 @@ function startDownload() {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-}
-
-// one listener, no duplicates
-document.addEventListener('click', e => {
-  if (e.target.closest('.download-btn')) {
-    e.preventDefault();
-    startDownload();
-  }
 });
 
 // Mobile menu toggle
