@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Say It App | Advanced Text-to-Speech Technology</title>
+    <meta name="description" content="Discover the powerful features of Say It app including AI-powered OCR, offline functionality, privacy protection, and multi-language support.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .comparison-table {
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .check-icon {
+            color: #10b981;
+            font-size: 1.5rem;
+        }
+        
+        .cross-icon {
+            color: #ef4444;
+            font-size: 1.5rem;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-in.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-up.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .tech-spec {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .use-case-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .use-case-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .use-case-card.active {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">Say It</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a>
+                    <a href="#features" class="text-red-400 font-medium">Features</a>
+                    <a href="testimonials.html" class="text-gray-600 hover:text-gray-800">Testimonials</a>
+                    <a href="about.html" class="text-gray-600 hover:text-gray-800">About</a>
+                    <button class="bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                        Download APK
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-toggle" class="md:hidden p-2">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-800 py-2">Home</a>
+                    <a href="#features" class="text-red-400 font-medium py-2">Features</a>
+                    <a href="testimonials.html" class="text-gray-600 hover:text-gray-800 py-2">Testimonials</a>
+                    <a href="about.html" class="text-gray-600 hover:text-gray-800 py-2">About</a>
+                    <button class="bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
+                        Download APK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold mb-6">
+                    Powerful <span class="gradient-text">Features</span> for Everyone
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Discover the advanced technology and thoughtful design that makes Say It the leading 
+                    accessibility app for text-to-speech conversion.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Categories -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    Core <span class="gradient-text">Capabilities</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Every feature is designed with accessibility, privacy, and user empowerment in mind.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- AI-Powered OCR -->
+                <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl flex items-center justify-center text-white mb-6">
+                        <i class="fas fa-eye text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">🔍 AI-Powered OCR</h3>
+                    <p class="text-gray-600 mb-4">
+                        Advanced optical character recognition technology that accurately extracts text from images, 
+                        even with challenging fonts, lighting conditions, and angles.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• 89% accuracy rate (continuously improving)</li>
+                        <li>• Supports multiple fonts and styles</li>
+                        <li>• Works in various lighting conditions</li>
+                        <li>• Real-time processing</li>
+                    </ul>
+                </div>
+                
+                <!-- Multi-Language Support -->
+                <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-xl flex items-center justify-center text-white mb-6">
+                        <i class="fas fa-globe text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">🌍 10 Languages</h3>
+                    <p class="text-gray-600 mb-4">
+                        Convert text into natural-sounding speech in 10 different languages with authentic 
+                        pronunciation and regional accents.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• English</li>
+                        <li>• Spanish, French, German</li>
+                        <li>• Italian, Portuguese, Japanese</li>
+                        <li>• Hindi, Arabic (More coming soon!)</li>
+                    </ul>
+                </div>
+                
+                <!-- Voice Customization -->
+                <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-400 to-red-500 rounded-xl flex items-center justify-center text-white mb-6">
+                        <i class="fas fa-sliders-h text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">🎚️ Customizable Voices</h3>
+                    <p class="text-gray-600 mb-4">
+                        Personalize your experience with adjustable speech parameters including speed, 
+                        pitch, and tone for optimal listening comfort.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Speed control (0.5x to 2.0x)</li>
+                        <li>• Pitch adjustment</li>
+                        <li>• Volume normalization</li>
+                        <li>• Voice profile saving</li>
+                    </ul>
+                </div>
+                
+                <!-- Privacy Protection -->
+                <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center text-white mb-6">
+                        <i class="fas fa-lock text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">🔒 Zero Data Collection</h3>
+                    <p class="text-gray-600 mb-4">
+                        Your privacy is our priority. All processing happens locally on your device with 
+                        no data transmission to external servers.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• 100% offline processing</li>
+                        <li>• No cloud storage</li>
+                        <li>• No tracking or analytics</li>
+                        <li>• GDPR compliant</li>
+                    </ul>
+                </div>
+                
+                <!-- Accessibility Design -->
+                <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-xl flex items-center justify-center text-white mb-6">
+                        <i class="fas fa-universal-access text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">♿ Accessible Design</h3>
+                    <p class="text-gray-600 mb-4">
+                        Built from the ground up for accessibility with WCAG 2.1 AA compliance, 
+                        accessible design patterns, and screen reader compatibility.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• WCAG 2.1 AA compliant</li>
+                        <li>• High contrast interface</li>
+                        <li>• Large touch targets</li>
+                        <li>• Screen reader optimized</li>
+                    </ul>
+                </div>
+                
+                <!-- Offline Functionality -->
+                <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-400 to-red-500 rounded-xl flex items-center justify-center text-white mb-6">
+                        <i class="fas fa-wifi-slash text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">📴 Complete Offline Use</h3>
+                    <p class="text-gray-600 mb-4">
+                        Use Say It anywhere, anytime without internet connection. Perfect for travel, 
+                        remote areas, or situations with limited connectivity.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• No internet required</li>
+                        <li>• Works in airplane mode</li>
+                        <li>• Lightweight installation</li>
+                        <li>• Fast local processing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison Matrix -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    How Say It <span class="gradient-text">Compares</span>
+                </h2>
+                <p class="text-xl text-gray-600">
+                    See why Say It stands out from other text-to-speech applications.
+                </p>
+            </div>
+            
+            <!-- Category Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-8 fade-in">
+                <button class="category-btn active px-6 py-3 rounded-lg font-medium" data-category="privacy">
+                    🔒 Privacy
+                </button>
+                <button class="category-btn px-6 py-3 rounded-lg font-medium bg-white shadow-md" data-category="accessibility">
+                    ♿ Accessibility
+                </button>
+                <button class="category-btn px-6 py-3 rounded-lg font-medium bg-white shadow-md" data-category="features">
+                    ⚡ Features
+                </button>
+                <button class="category-btn px-6 py-3 rounded-lg font-medium bg-white shadow-md" data-category="languages">
+                    🌍 Languages
+                </button>
+            </div>
+            
+            <!-- Privacy Comparison -->
+            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="privacy">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Privacy Feature</th>
+                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 font-medium">100% Offline Processing</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">Zero Data Collection</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium">GDPR Compliant</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">No Cloud Storage</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Accessibility Comparison -->
+            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden hidden fade-in" data-category="accessibility">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Accessibility Feature</th>
+                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 font-medium">WCAG 2.1 AA Compliant</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">Custom Arabic OCR</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium">Large Touch Targets</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">Screen Reader Optimized</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Features Comparison -->
+            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden hidden fade-in" data-category="features">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Feature</th>
+                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 font-medium">AI-Powered OCR</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">Voice Customization</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium">Batch Processing</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">Real-time Processing</td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
+                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Languages Comparison -->
+            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden hidden fade-in" data-category="languages">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Language Support</th>
+                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
+                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 font-medium">English Support</td>
+                                <td class="px-6 py-4 text-center">✓</td>
+                                <td class="px-6 py-4 text-center">✓</td>
+                                <td class="px-6 py-4 text-center">✓</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">European Languages</td>
+                                <td class="px-6 py-4 text-center">5 Languages</td>
+                                <td class="px-6 py-4 text-center">3 Languages</td>
+                                <td class="px-6 py-4 text-center">4 Languages</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium">Asian Languages</td>
+                                <td class="px-6 py-4 text-center">Japanese, Chinese</td>
+                                <td class="px-6 py-4 text-center">Chinese Only</td>
+                                <td class="px-6 py-4 text-center">Japanese Only</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 font-medium">Total Languages</td>
+                                <td class="px-6 py-4 text-center font-bold text-red-400">10</td>
+                                <td class="px-6 py-4 text-center">5</td>
+                                <td class="px-6 py-4 text-center">7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    Technical <span class="gradient-text">Specifications</span>
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Deep dive into the technology that powers Say It's exceptional performance.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- OCR Technology -->
+                <div class="tech-spec p-6 rounded-xl fade-in">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-eye text-blue-500 mr-2"></i>
+                        AI-Powered OCR Engine
+                    </h3>
+                    <div class="space-y-3 text-gray-600">
+                        <div class="flex justify-between">
+                            <span>Accuracy Rate:</span>
+                            <span class="font-semibold text-orange-600">89% (Improving)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Processing Speed:</span>
+                            <span class="font-semibold">&lt; 2 seconds</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Supported Formats:</span>
+                            <span class="font-semibold">JPEG, PNG, PDF</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Minimum Text Size:</span>
+                            <span class="font-semibold">8pt font</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Angle Tolerance:</span>
+                            <span class="font-semibold">±15 degrees</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Speech Synthesis -->
+                <div class="tech-spec p-6 rounded-xl fade-in">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-volume-up text-green-500 mr-2"></i>
+                        Speech Synthesis Engine
+                    </h3>
+                    <div class="space-y-3 text-gray-600">
+                        <div class="flex justify-between">
+                            <span>Voice Quality:</span>
+                            <span class="font-semibold text-green-600">Natural Neural TTS</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Speed Range:</span>
+                            <span class="font-semibold">0.5x - 2.0x</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Pitch Control:</span>
+                            <span class="font-semibold">0.5 - 2.0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Audio Quality:</span>
+                            <span class="font-semibold">48kHz Sample Rate</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Latency:</span>
+                            <span class="font-semibold">&lt; 100ms</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Privacy & Security -->
+                <div class="tech-spec p-6 rounded-xl fade-in">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-shield-alt text-red-500 mr-2"></i>
+                        Privacy & Security
+                    </h3>
+                    <div class="space-y-3 text-gray-600">
+                        <div class="flex justify-between">
+                            <span>Data Processing:</span>
+                            <span class="font-semibold text-green-600">100% Local</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Cloud Storage:</span>
+                            <span class="font-semibold text-red-600">None</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Analytics:</span>
+                            <span class="font-semibold text-red-600">Disabled</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Encryption:</span>
+                            <span class="font-semibold">AES-256 (Local)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>GDPR Compliance:</span>
+                            <span class="font-semibold text-green-600">Full</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Requirements -->
+                <div class="tech-spec p-6 rounded-xl fade-in">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-cog text-purple-500 mr-2"></i>
+                        System Requirements
+                    </h3>
+                    <div class="space-y-3 text-gray-600">
+                        <div class="flex justify-between">
+                            <span>Android Version:</span>
+                            <span class="font-semibold">7.0+ (API 24)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>RAM:</span>
+                            <span class="font-semibold">2GB Minimum</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Storage:</span>
+                            <span class="font-semibold">150MB Available</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Camera:</span>
+                            <span class="font-semibold">5MP+ Recommended</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Processor:</span>
+                            <span class="font-semibold">ARM64 / x86_64</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    Who Can Benefit from <span class="gradient-text">Say It</span>?
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Explore how different users leverage Say It for greater independence and accessibility.
+                </p>
+            </div>
+            
+            <!-- Use Case Selector -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 fade-in">
+                <div class="use-case-card active bg-white p-6 rounded-xl shadow-lg text-center" data-case="visually-impaired">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                        <i class="fas fa-eye text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">👁️ Visually Impaired</h3>
+                </div>
+                
+                <div class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center" data-case="elderly">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                        <i class="fas fa-user-friends text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">💊 Elderly Users</h3>
+                </div>
+                
+                <div class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center" data-case="travelers">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                        <i class="fas fa-plane text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">🌍 Travelers</h3>
+                </div>
+                
+                <div class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center" data-case="students">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">📚 Students</h3>
+                </div>
+            </div>
+            
+            <!-- Use Case Details -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg fade-in">
+                <div id="use-case-content">
+                    <!-- Visually Impaired Content (Default) -->
+                    <div class="use-case-detail" data-case="visually-impaired">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                            <i class="fas fa-eye text-blue-500 mr-2"></i>
+                            For Visually Impaired Users
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Challenges:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Reading medication labels and instructions</li>
+                                    <li>• Identifying products while shopping</li>
+                                    <li>• Reading menus at restaurants</li>
+                                    <li>• Accessing printed documents</li>
+                                    <li>• Reading street signs and directions</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">How Say It Helps:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Instant text recognition and speech</li>
+                                    <li>• Voice-guided photo capture</li>
+                                    <li>• Hands-free operation</li>
+                                    <li>• Customizable voice settings</li>
+                                    <li>• Works in any lighting condition</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elderly Content -->
+                    <div class="use-case-detail hidden" data-case="elderly">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                            <i class="fas fa-user-friends text-green-500 mr-2"></i>
+                            For Elderly Users
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Challenges:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Reading small print on medications</li>
+                                    <li>• Understanding product instructions</li>
+                                    <li>• Reading mail and bills</li>
+                                    <li>• Identifying expiration dates</li>
+                                    <li>• Reading phone numbers and addresses</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">How Say It Helps:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Large, easy-to-use interface</li>
+                                    <li>• Clear, natural voice output</li>
+                                    <li>• Adjustable speech speed</li>
+                                    <li>• Simple one-tap operation</li>
+                                    <li>• Reliable offline functionality</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Travelers Content -->
+                    <div class="use-case-detail hidden" data-case="travelers">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                            <i class="fas fa-plane text-orange-500 mr-2"></i>
+                            For Travelers
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Challenges:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Reading foreign language signs</li>
+                                    <li>• Understanding menus in restaurants</li>
+                                    <li>• Reading transportation information</li>
+                                    <li>• Identifying products in stores</li>
+                                    <li>• Understanding local regulations</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">How Say It Helps:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Multi-language text recognition</li>
+                                    <li>• Works without internet connection</li>
+                                    <li>• Translates foreign text to speech</li>
+                                    <li>• Compact and portable solution</li>
+                                    <li>• Instant translation capability</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Students Content -->
+                    <div class="use-case-detail hidden" data-case="students">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                            <i class="fas fa-graduation-cap text-purple-500 mr-2"></i>
+                            For Students
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">Common Challenges:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Converting textbook notes to audio</li>
+                                    <li>• Reviewing study materials on-the-go</li>
+                                    <li>• Accessibility for learning disabilities</li>
+                                    <li>• Multilingual study materials</li>
+                                    <li>• Time management during commutes</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">How Say It Helps:</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li>• Convert any text to audio study guides</li>
+                                    <li>• Listen to notes while commuting</li>
+                                    <li>• Support for multiple languages</li>
+                                    <li>• Adjustable reading speed for comprehension</li>
+                                    <li>• Offline access to all materials</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-red-400 to-teal-400">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">
+                Experience the Full Power of Say It
+            </h2>
+            <p class="text-xl text-white/90 mb-8">
+                Download the app and discover how our advanced features can transform your daily life.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                    <i class="fas fa-download mr-2"></i>
+                    Download Free APK
+                </button>
+                <a href="testimonials.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all">
+                    <i class="fas fa-users mr-2"></i>
+                    Read User Stories
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold">Say It</span>
+                </div>
+                <p class="text-gray-400 mb-4">
+                    Empowering accessibility through technology
+                </p>
+                <p class="text-sm text-gray-500">
+                    © 2025 Say It - All rights reserved • Built with accessibility in mind
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="main.js"></script>
+    
+    <!-- Feature-specific JavaScript -->
+    <script>
+        // Feature comparison functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const comparisonTables = document.querySelectorAll('.comparison-table');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Update active button
+                    categoryButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.add('bg-white', 'shadow-md');
+                    });
+                    this.classList.add('active');
+                    this.classList.remove('bg-white', 'shadow-md');
+                    
+                    // Show relevant table
+                    comparisonTables.forEach(table => {
+                        table.classList.add('hidden');
+                        if (table.dataset.category === category) {
+                            table.classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+            
+            // Use case functionality
+            const useCaseCards = document.querySelectorAll('.use-case-card');
+            const useCaseDetails = document.querySelectorAll('.use-case-detail');
+            
+            useCaseCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const caseType = this.dataset.case;
+                    
+                    // Update active card
+                    useCaseCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show relevant content
+                    useCaseDetails.forEach(detail => {
+                        detail.classList.add('hidden');
+                        if (detail.dataset.case === caseType) {
+                            detail.classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

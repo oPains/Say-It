@@ -3,935 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Say It - See Through Sound</title>
+    <title>Say It - See Through Sound | Accessibility Text-to-Speech App</title>
+    <meta name="description" content="Say It is an accessibility app that helps the visually impaired read printed text through speech. Join 40K+ users across 18 countries.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0a0e27;
-            color: #fff;
-            overflow-x: hidden;
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 50%, #4a5568 100%);
             position: relative;
+            overflow: hidden;
         }
-
-        /* Animated Background Shapes */
-        .bg-shapes {
-            position: fixed;
+        
+        .aurora-effect {
+            position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 107, 107, 0.1) 0%, 
+                rgba(78, 205, 196, 0.1) 50%, 
+                rgba(255, 107, 107, 0.1) 100%);
+            animation: aurora-flow 8s ease-in-out infinite;
+        }
+        
+        @keyframes aurora-flow {
+            0%, 100% { transform: translateX(-10%) rotate(0deg); }
+            50% { transform: translateX(10%) rotate(2deg); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-in.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-up.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
-
-        .shape {
+        
+        .glow-button:hover::before {
+            left: 100%;
+        }
+        
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .waveform-container {
+            background: rgba(247, 250, 252, 0.8);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        
+        #particles-canvas {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .shape1 {
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            top: -200px;
-            left: -200px;
-            animation-delay: 0s;
-        }
-
-        .shape2 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 5s;
-        }
-
-        .shape3 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            top: 50%;
-            left: 50%;
-            animation-delay: 10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -100px) scale(1.1); }
-            66% { transform: translate(-100px, 100px) scale(0.9); }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
+            top: 0;
+            left: 0;
+            pointer-events: none;
             z-index: 1;
         }
-
-        /* Header */
-        header {
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(20px);
-            background: rgba(10, 14, 39, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
         }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.3s;
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
         }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 80px 0 100px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 64px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .hero .tagline {
-            font-size: 28px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-
-        .hero .description {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-        }
-
-        .hero-image {
-            max-width: 300px;
-            margin: 40px auto;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-        }
-
-        .hero-image img {
+        
+        .nav-link:hover::after {
             width: 100%;
-            border-radius: 30px;
         }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+        
+        .notification {
+            animation: slideInRight 0.3s ease-out;
         }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
-        }
-
-        .user-count {
-            margin-top: 30px;
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .platform-note {
-            margin-top: 10px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 80px 0;
-            position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 60px;
-            font-weight: 700;
-        }
-
-        /* Key Features Layout */
-        .key-features-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 60px;
-            align-items: center;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .features-image {
-            position: relative;
-        }
-
-        .features-image img {
-            width: 100%;
-            max-width: 350px;
-            border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4);
-        }
-
-        .features-list {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .feature-item-inline {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-        }
-
-        .feature-item-inline:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(5px);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-
-        .feature-icon-small {
-            font-size: 32px;
-            min-width: 40px;
-        }
-
-        .feature-item-inline h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #fff;
-        }
-
-        .feature-item-inline p {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(102, 126, 234, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .feature-card p {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        /* Benefits Section */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .benefit-item {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .benefit-item:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .benefit-item .emoji {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .benefit-item h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .benefit-item p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Testimonials Section */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 35px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-
-        .testimonial-quote {
-            font-size: 48px;
-            color: rgba(102, 126, 234, 0.3);
-            line-height: 0;
-            margin-bottom: 20px;
-        }
-
-        .testimonial-text {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .testimonial-info h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #fff;
-        }
-
-        .testimonial-info p {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Partnership Badge */
-        .partnership-note {
-            text-align: center;
-            margin-top: 40px;
-            padding: 35px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 20px;
-            border: 1px solid rgba(102, 126, 234, 0.3);
-        }
-
-        .partnership-note h4 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .partnership-note p {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-            font-size: 15px;
-        }
-
-        .partnership-logos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .partnership-logos span {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Language Dropdown */
-        .language-toggle {
-            margin-top: 12px;
-            padding: 10px 20px;
-            background: rgba(102, 126, 234, 0.2);
-            border: 1px solid rgba(102, 126, 234, 0.4);
-            border-radius: 8px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .language-toggle:hover {
-            background: rgba(102, 126, 234, 0.3);
-            border-color: rgba(102, 126, 234, 0.6);
-        }
-
-        .language-list {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            margin-top: 15px;
-        }
-
-        .language-list.active {
-            max-height: 300px;
-        }
-
-        .language-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .language-grid span {
-            padding: 8px 12px;
-            background: rgba(102, 126, 234, 0.15);
-            border-radius: 6px;
-            font-size: 14px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Steps */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-        }
-
-        .step {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .step-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .step h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .step p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* About Section */
-        .founder-card {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-
-        .founder-card h3 {
-            font-size: 28px;
-            margin: 20px 0 10px;
-        }
-
-        .founder-card .title {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 20px;
-        }
-
-        .founder-card ul {
-            list-style: none;
-            text-align: left;
-            margin: 20px 0;
-        }
-
-        .founder-card li {
-            padding: 10px 0;
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .founder-card li:before {
-            content: "✓";
-            color: #667eea;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: transform 0.3s;
-        }
-
-        .contact-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        footer p {
-            color: rgba(255, 255, 255, 0.6);
-            margin: 5px 0;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 42px;
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
             }
-
-            .hero .tagline {
-                font-size: 20px;
-            }
-
-            .section-title {
-                font-size: 32px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .key-features-layout {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .features-image img {
-                max-width: 280px;
-                margin: 0 auto;
-                display: block;
-            }
-
-            .features-grid,
-            .benefits-grid,
-            .steps-grid,
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .shape {
-                filter: blur(60px);
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
     </style>
 </head>
-<body>
-    <!-- Animated Background -->
-    <div class="bg-shapes">
-        <div class="shape shape1"></div>
-        <div class="shape shape2"></div>
-        <div class="shape shape3"></div>
-    </div>
-
-    <header>
-        <nav class="container">
-            <div class="logo">Say It</div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#benefits">Benefits</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#how">How It Works</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div class="container">
-            <h1>Say It</h1>
-            <div class="tagline">See Through Sound – Listen to the World Around You</div>
-            <p class="description">An accessibility app that helps the visually impaired read printed text through speech.</p>
-
-            <a href="https://github.com/oPains/Say-It/releases/download/V1.0.0/SayIt.apk" class="cta-button">
-                <span>Download Now</span>
-                <span>⬇</span>
-            </a>
-            <div class="user-count">🔥 Join 40K+ users across 18 countries!</div>
-            <div class="platform-note">Currently available for Android only</div>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">Say It</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="nav-link text-gray-600 hover:text-gray-800">Features</a>
+                    <a href="features.html" class="nav-link text-gray-600 hover:text-gray-800">Details</a>
+                    <a href="testimonials.html" class="nav-link text-gray-600 hover:text-gray-800">Testimonials</a>
+                    <a href="about.html" class="nav-link text-gray-600 hover:text-gray-800">About</a>
+                    <button class="glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                        Download APK
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-toggle" class="md:hidden p-2">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="#features" class="text-gray-600 hover:text-gray-800 py-2">Features</a>
+                    <a href="features.html" class="text-gray-600 hover:text-gray-800 py-2">Details</a>
+                    <a href="testimonials.html" class="text-gray-600 hover:text-gray-800 py-2">Testimonials</a>
+                    <a href="about.html" class="text-gray-600 hover:text-gray-800 py-2">About</a>
+                    <button class="glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
+                        Download APK
+                    </button>
+                </div>
+            </div>
         </div>
-    </section>
+    </nav>
 
-    <section id="features">
-        <div class="container">
-            <h2 class="section-title">Why Choose Say It?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Instant Text-to-Speech</h3>
-                    <p>Just take a photo, and Say It reads the text for you instantly with high accuracy.</p>
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center relative">
+        <div id="particles-canvas"></div>
+        <div class="aurora-effect"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 hero-content">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-white">
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                        <span class="hero-title gradient-text"></span>
+                    </h1>
+                    <p class="text-xl lg:text-2xl mb-8 text-gray-200 leading-relaxed">
+                        An accessibility app that helps the visually impaired read printed text through speech. 
+                        Join <strong class="text-yellow-300">40K+ users</strong> across <strong class="text-yellow-300">18 countries</strong>!
+                    </p>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="text-center">
+                            <div class="stats-counter counter" data-target="40000">0</div>
+                            <p class="text-gray-300">Active Users</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="stats-counter counter" data-target="18">0</div>
+                            <p class="text-gray-300">Countries</p>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                            <i class="fas fa-download mr-2"></i>
+                            Download Now
+                        </button>
+                        <button class="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/20 transition-all">
+                            <i class="fas fa-play mr-2"></i>
+                            Watch Demo
+                        </button>
+                    </div>
+                    
+                    <p class="text-sm text-gray-300 mt-4">
+                        <i class="fas fa-android mr-1"></i>
+                        Currently available for Android only
+                    </p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>100% Private & Secure</h3>
-                    <p>Zero data collection. Everything happens on your device. Your privacy is guaranteed.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">♿</div>
-                    <h3>Simple & Accessible</h3>
-                    <p>Designed specifically for the visually impaired with an intuitive interface.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📴</div>
-                    <h3>Works Completely Offline</h3>
-                    <p>No internet required. Read medication labels, menus, street signs, books, and more—anywhere, anytime.</p>
+                
+                <!-- Right Content - App Preview -->
+                <div class="relative">
+                    <div class="relative z-10">
+                        <img src="resources/promo.png" alt="Say It App Interface" class="w-full max-w-md mx-auto rounded-2xl shadow-2xl">
+                    </div>
+                    
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white animate-bounce">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white animate-pulse">
+                        <i class="fas fa-check"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
-        <div class="container">
-            <h2 class="section-title">Key Features</h2>
-            <div class="key-features-layout">
-                <div class="features-image">
-                    <img src="promo.png" alt="Say It App Screenshot">
+    <!-- Global Distribution Map -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    Global <span class="gradient-text">Impact</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    See how Say It is transforming lives across the globe. Our users span 18 countries, 
+                    creating a worldwide community of accessibility and inclusion.
+                </p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg fade-in">
+                <div id="world-map" style="width: 100%; height: 500px;"></div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-red-400 counter" data-target="40000">0</div>
+                        <p class="text-gray-600">Total Users</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-teal-400 counter" data-target="18">0</div>
+                        <p class="text-gray-600">Countries</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-400">10</div>
+                        <p class="text-gray-600">Languages</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-400">100</div>
+                        <p class="text-gray-600">% Offline</p>
+                    </div>
                 </div>
-                <div class="features-list">
-                    <div class="feature-item-inline">
-                        <div class="feature-icon-small">🔍</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    Why Choose <span class="gradient-text">Say It</span>?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Experience the most advanced, privacy-focused, and user-friendly text-to-speech app 
+                    designed specifically for accessibility and independence.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1: Instant Text-to-Speech -->
+                <div class="feature-card bg-white rounded-xl p-6 shadow-lg slide-up">
+                    <div class="w-12 h-12 bg-gradient-to-r from-red-400 to-pink-400 rounded-lg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">⚡ Instant Text-to-Speech</h3>
+                    <p class="text-gray-600">
+                        Just take a photo, and Say It reads the text for you instantly with high accuracy using advanced AI-powered OCR technology.
+                    </p>
+                </div>
+                
+                <!-- Feature 2: Privacy & Security -->
+                <div class="feature-card bg-white rounded-xl p-6 shadow-lg slide-up">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-teal-400 rounded-lg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">🔒 100% Private & Secure</h3>
+                    <p class="text-gray-600">
+                        Zero data collection. Everything happens on your device. Your privacy is guaranteed with offline processing.
+                    </p>
+                </div>
+                
+                <!-- Feature 3: Simple & Accessible -->
+                <div class="feature-card bg-white rounded-xl p-6 shadow-lg slide-up">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-universal-access text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">♿ Simple & Accessible</h3>
+                    <p class="text-gray-600">
+                        Designed specifically for the visually impaired with an intuitive interface and accessible design.
+                    </p>
+                </div>
+                
+                <!-- Feature 4: Works Offline -->
+                <div class="feature-card bg-white rounded-xl p-6 shadow-lg slide-up">
+                    <div class="w-12 h-12 bg-gradient-to-r from-orange-400 to-red-400 rounded-lg flex items-center justify-center text-white mb-4">
+                        <i class="fas fa-wifi-slash text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">📴 Works Completely Offline</h3>
+                    <p class="text-gray-600">
+                        No internet required. Read medication labels, menus, street signs, books, and more—anywhere, anytime.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voice Customization Demo -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    Try <span class="gradient-text">Voice Customization</span>
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Experience the power of customizable text-to-speech with real-time adjustments.
+                </p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg fade-in">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Controls -->
+                    <div class="space-y-6">
                         <div>
-                            <h3>AI-Powered OCR</h3>
-                            <p>Instantly extracts text from images with high accuracy</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Speed: <span id="speed-value" class="text-red-400">1.0x</span>
+                            </label>
+                            <input type="range" id="speed-slider" min="0.5" max="2.0" step="0.1" value="1.0" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                         </div>
-                    </div>
-                    <div class="feature-item-inline">
-                        <div class="feature-icon-small">🌍</div>
+                        
                         <div>
-                            <h3>10 Languages (More Coming Soon!)</h3>
-                            <p>Convert text into natural-sounding speech in multiple languages</p>
-                            <button class="language-toggle" onclick="toggleLanguages()">View Supported Languages ▼</button>
-                            <div class="language-list" id="languageList">
-                                <div class="language-grid">
-                                    <span>🇬🇧 English</span>
-                                    <span>🇵🇹 Portuguese</span>
-                                    <span>🇪🇸 Spanish</span>
-                                    <span>🇩🇪 German</span>
-                                    <span>🇫🇷 French</span>
-                                    <span>🇸🇦 Arabic</span>
-                                    <span>🇮🇳 Hindi</span>
-                                    <span>🇯🇵 Japanese</span>
-                                    <span>🇷🇺 Russian</span>
-                                    <span>🇮🇹 Italian</span>
-                                </div>
-                            </div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Pitch: <span id="pitch-value" class="text-teal-400">1.0</span>
+                            </label>
+                            <input type="range" id="pitch-slider" min="0.5" max="2.0" step="0.1" value="1.0" 
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                         </div>
+                        
+                        <button id="play-demo" class="w-full glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                            <i class="fas fa-play mr-2"></i>
+                            Play Demo
+                        </button>
                     </div>
-                    <div class="feature-item-inline">
-                        <div class="feature-icon-small">🎚️</div>
-                        <div>
-                            <h3>Customizable Voices</h3>
-                            <p>Adjust speed, pitch, and tone for a personalized experience</p>
-                        </div>
-                    </div>
-                    <div class="feature-item-inline">
-                        <div class="feature-icon-small">📱</div>
-                        <div>
-                            <h3>Easy to Use</h3>
-                            <p>Simple interface designed for accessibility</p>
-                        </div>
+                    
+                    <!-- Waveform Visualization -->
+                    <div class="waveform-container">
+                        <div id="waveform-canvas" class="w-full h-24"></div>
+                        <p class="text-sm text-gray-500 text-center mt-2">
+                            Real-time voice waveform visualization
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="benefits">
-        <div class="container">
-            <h2 class="section-title">Who Can Benefit?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="emoji">👁️</div>
-                    <h3>Visually Impaired</h3>
-                    <p>Read anything, anywhere</p>
+    <!-- Language Support -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    <span class="gradient-text">10 Languages</span> Supported
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Convert text into natural-sounding speech in multiple languages. More coming soon!
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4 fade-in">
+                <!-- Language Options -->
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇺🇸</div>
+                    <h3 class="font-semibold text-gray-800">English (US)</h3>
                 </div>
-                <div class="benefit-item">
-                    <div class="emoji">💊</div>
-                    <h3>Elderly</h3>
-                    <p>Read medication labels</p>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇬🇧</div>
+                    <h3 class="font-semibold text-gray-800">English (UK)</h3>
                 </div>
-                <div class="benefit-item">
-                    <div class="emoji">🌍</div>
-                    <h3>Travelers</h3>
-                    <p>Listen to foreign text</p>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇪🇸</div>
+                    <h3 class="font-semibold text-gray-800">Spanish</h3>
                 </div>
-                <div class="benefit-item">
-                    <div class="emoji">📚</div>
-                    <h3>Students</h3>
-                    <p>Convert notes to audio</p>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇫🇷</div>
+                    <h3 class="font-semibold text-gray-800">French</h3>
+                </div>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇩🇪</div>
+                    <h3 class="font-semibold text-gray-800">German</h3>
+                </div>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇮🇹</div>
+                    <h3 class="font-semibold text-gray-800">Italian</h3>
+                </div>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇵🇹</div>
+                    <h3 class="font-semibold text-gray-800">Portuguese</h3>
+                </div>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇯🇵</div>
+                    <h3 class="font-semibold text-gray-800">Japanese</h3>
+                </div>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇮🇳</div>
+                    <h3 class="font-semibold text-gray-800">Hindi</h3>
+                </div>
+                
+                <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
+                    <div class="text-2xl mb-2">🇦🇪</div>
+                    <h3 class="font-semibold text-gray-800">Arabic</h3>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <div class="inline-flex items-center bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-3 rounded-full">
+                    <i class="fas fa-plus mr-2"></i>
+                    More languages coming soon!
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Users Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">Say It has transformed how I interact with the world. I can now read restaurant menus, medicine bottles, and even street signs independently. It's truly life-changing.</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">👤</div>
-                        <div class="testimonial-info">
-                            <h4>Sarah M.</h4>
-                            <p>Visually Impaired User</p>
-                        </div>
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-red-400 to-teal-400">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">
+                Ready to Transform Your World?
+            </h2>
+            <p class="text-xl text-white/90 mb-8">
+                Join thousands of users who have already discovered the power of accessible text-to-speech technology.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="download-btn bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                    <i class="fas fa-download mr-2"></i>
+                    Download Say It Now
+                </button>
+                <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Learn More Features
+                </a>
+            </div>
+            
+            <p class="text-sm text-white/80 mt-4">
+                <i class="fab fa-android mr-1"></i>
+                Available for Android devices • Free download
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm"></i>
                     </div>
+                    <span class="text-xl font-bold">Say It</span>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">As someone who struggles with reading small print, this app is a blessing. The offline feature means I can use it anywhere, even in areas with poor internet connection.</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">👤</div>
-                        <div class="testimonial-info">
-                            <h4>Ahmed K.</h4>
-                            <p>Elderly User</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"</div>
-                    <p class="testimonial-text">I love that my data stays on my device. Finally, an accessibility app that respects privacy while being incredibly useful. The voice customization is fantastic too!</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">👤</div>
-                        <div class="testimonial-info">
-                            <h4>Michael T.</h4>
-                            <p>Privacy-Conscious User</p>
-                        </div>
-                    </div>
-                </div>
+                <p class="text-gray-400 mb-4">
+                    Empowering accessibility through technology
+                </p>
+                <p class="text-sm text-gray-500">
+                    © 2025 Say It - All rights reserved • Built with accessibility in mind
+                </p>
             </div>
-
-            <div class="partnership-note">
-                <h4>🤝 Working Towards Accessibility Partnerships</h4>
-                <p>We’ve initiated outreach to leading accessibility organizations to explore potential collaborations.</p>
-                <div class="partnership-logos">
-                    <span>Sightsavers</span>
-                    <span>HelpAge</span>
-                    <span>NAID Egypt</span>
-                    <span>Baseera</span>
-                    <span>Helm</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <div class="steps-grid">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Download</h3>
-                    <p>Install the APK on your Android device</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Open App</h3>
-                    <p>Grant required permissions</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Capture</h3>
-                    <p>Take a photo of any text</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Listen</h3>
-                    <p>Hear it read aloud instantly</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">About the Founder</h2>
-            <div class="founder-card">
-                <div class="emoji" style="font-size: 64px;">👨‍💻</div>
-                <h3>Omar Abdelnaby</h3>
-                <div class="title">Founder & Developer</div>
-                <ul>
-                    <li>Passionate about accessibility & AI technology</li>
-                    <li>Built this app to empower the visually impaired</li>
-                </ul>
-                <a href="mailto:omar.ashraf.edu@gmail.com" class="contact-btn">Contact Me</a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Say It - All rights reserved</p>
-            <p>Empowering accessibility through technology</p>
         </div>
     </footer>
 
-    <script>
-        function toggleLanguages() {
-            const list = document.getElementById('languageList');
-            const button = document.querySelector('.language-toggle');
-            
-            if (list.classList.contains('active')) {
-                list.classList.remove('active');
-                button.textContent = 'View Supported Languages ▼';
-            } else {
-                list.classList.add('active');
-                button.textContent = 'Hide Languages ▲';
-            }
-        }
-    </script>
+    <!-- Main JavaScript -->
+    <script src="main.js"></script>
 </body>
 </html>
-
