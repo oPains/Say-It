@@ -476,41 +476,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-/* ===== NEW DOWNLOAD LOGIC ===== */
-function showDownloadToast() {
-  const toast = document.createElement('div');
-  toast.className = 'download-toast';
-  toast.innerHTML = `
-    <div class="spinner"></div>
-    <div>
-      <div class="font-semibold">Download will begin shortly…</div>
-    </div>`;
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    toast.classList.add('hide');
-    toast.addEventListener('animationend', () => toast.remove());
-  }, 3000);
-}
-
-function startDownload() {
-  showDownloadToast();
-  const link = document.createElement('a');
-  link.href = 'https://github.com/oPains/Say-It/releases/download/V1.0.0/SayIt.apk';
-  link.download = 'SayIt.apk';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
-document.addEventListener('click', e => {
-  if (e.target.closest('.download-btn')) {
-    e.preventDefault();
-    startDownload();
-  }
-});
-
-/* ===== GLOBAL DOWNLOAD HANDLER ===== */
+/* ===== SINGLE GLOBAL DOWNLOAD HANDLER ===== */
 function showDownloadToast() {
   const toast = document.createElement('div');
   toast.className = 'download-toast';
@@ -534,13 +500,12 @@ function startDownload() {
   document.body.removeChild(link);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.addEventListener('click', e => {
-    if (e.target.closest('.download-btn')) {
-      e.preventDefault();
-      startDownload();
-    }
-  });
+// one listener, no duplicates
+document.addEventListener('click', e => {
+  if (e.target.closest('.download-btn')) {
+    e.preventDefault();
+    startDownload();
+  }
 });
 
 // Mobile menu toggle
