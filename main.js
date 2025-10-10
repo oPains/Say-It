@@ -460,13 +460,7 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Download button handlers
-document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('download-btn')) {
-        event.preventDefault();
-        showNotification('Thank you for your interest! The Say It app will be available for download soon. We\'ll notify you when it\'s ready.', 'success');
-    }
-});
+
 
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
