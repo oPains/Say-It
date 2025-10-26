@@ -97,26 +97,26 @@ function initializeWorldMap() {
     if (typeof echarts !== 'undefined' && document.getElementById('world-map')) {
         const mapChart = echarts.init(document.getElementById('world-map'));
         
-        // Country data with user counts (corrected with Egypt as largest)
+        // Country data scaled to exactly 40,000 users
         const countryData = [
-            {name: 'Egypt', value: 12000},
-            {name: 'Saudi Arabia', value: 6500},
-            {name: 'United Arab Emirates', value: 4800},
-            {name: 'United States', value: 4200},
-            {name: 'United Kingdom', value: 3800},
-            {name: 'Canada', value: 2900},
-            {name: 'Germany', value: 2400},
-            {name: 'France', value: 2100},
-            {name: 'Australia', value: 1800},
-            {name: 'Jordan', value: 1600},
-            {name: 'Lebanon', value: 1400},
-            {name: 'India', value: 1200},
-            {name: 'Netherlands', value: 1000},
-            {name: 'Sweden', value: 800},
-            {name: 'Norway', value: 700},
-            {name: 'Kuwait', value: 600},
-            {name: 'Qatar', value: 500},
-            {name: 'Bahrain', value: 400}
+            {name: 'Egypt', value: 9856},
+            {name: 'Saudi Arabia', value: 5339},
+            {name: 'United Arab Emirates', value: 3942},
+            {name: 'United States', value: 3450},
+            {name: 'United Kingdom', value: 3121},
+            {name: 'Canada', value: 2382},
+            {name: 'Germany', value: 1971},
+            {name: 'France', value: 1725},
+            {name: 'Australia', value: 1478},
+            {name: 'Jordan', value: 1314},
+            {name: 'Lebanon', value: 1150},
+            {name: 'India', value: 986},
+            {name: 'Netherlands', value: 821},
+            {name: 'Sweden', value: 657},
+            {name: 'Norway', value: 575},
+            {name: 'Kuwait', value: 493},
+            {name: 'Qatar', value: 411},
+            {name: 'Bahrain', value: 329}
         ];
         
         const option = {
@@ -133,9 +133,10 @@ function initializeWorldMap() {
             },
             visualMap: {
                 min: 0,
-                max: 12000,
-                left: 'left',
+                max: 10000, // Adjusted max for the new data
+                left: 'center', // Centered for mobile
                 top: 'bottom',
+                orient: 'horizontal', // Horizontal for mobile
                 text: ['High', 'Low'],
                 calculable: true,
                 inRange: {
@@ -143,7 +144,9 @@ function initializeWorldMap() {
                 },
                 textStyle: {
                     color: '#2d3748'
-                }
+                },
+                itemWidth: 15, // Thinner slider
+                itemHeight: 80 // Shorter slider
             },
             series: [{
                 name: 'Say It Users',
@@ -163,6 +166,11 @@ function initializeWorldMap() {
                 itemStyle: {
                     borderColor: '#fff',
                     borderWidth: 0.5
+                },
+                zoom: 1.2, // Default zoom
+                scaleLimit: { // Limit zoom for mobile
+                    min: 1,
+                    max: 10
                 }
             }]
         };
@@ -409,30 +417,6 @@ function initializeLanguageSelector() {
             }
         });
     }
-}
-
-// Feature comparison matrix
-function initializeFeatureComparison() {
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    const comparisonTables = document.querySelectorAll('.comparison-table');
-    
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const category = this.dataset.category;
-            
-            // Update active button
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show relevant table
-            comparisonTables.forEach(table => {
-                table.classList.add('hidden');
-                if (table.dataset.category === category) {
-                    table.classList.remove('hidden');
-                }
-            });
-        });
-    });
 }
 
 // Utility functions
