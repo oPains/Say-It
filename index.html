@@ -6,10 +6,8 @@
     <title>Say It - See Through Sound | Accessibility Text-to-Speech App</title>
     <meta name="description" content="Say It is an accessibility app that helps the visually impaired read printed text through speech. Join 40,000 users across 18 countries.">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
@@ -18,7 +16,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom Styles -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
@@ -235,11 +232,9 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
-    <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-2 focusable rounded-lg" aria-label="Say It Homepage">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
@@ -247,7 +242,6 @@
                     <span class="text-xl font-bold text-slate-900">Say It</span>
                 </a>
                 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#features" class="nav-link focusable rounded-md">Features</a>
                     <a href="features.html" class="nav-link focusable rounded-md">Details</a>
@@ -258,14 +252,12 @@
                     </button>
                 </div>
                 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-toggle" class="md:hidden p-2 focusable rounded-md" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <i class="fas fa-bars text-slate-600" aria-hidden="true"></i>
                 </button>
             </div>
             
-            <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
                     <a href="#features" class="nav-link focusable rounded-md py-2">Features</a>
@@ -280,16 +272,13 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content">
-        <!-- Hero Section -->
         <section class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
             <div id="particles-canvas" aria-hidden="true"></div>
             <div class="aurora-effect" aria-hidden="true"></div>
             
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 hero-content">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <!-- Left Content -->
                     <div class="text-white">
                         <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100">
                             <span class="hero-title gradient-text"></span>
@@ -299,23 +288,21 @@
                             Join <strong class="text-yellow-300">40,000 users</strong> across <strong class="text-yellow-300">18 countries</strong>!
                         </p>
                         
-                        <!-- Stats -->
                         <div class="grid grid-cols-2 gap-6 mb-8">
                             <div class="text-center">
-                                <p class="text-slate-200 text-lg">
+                                <p class="text-slate-200 text-lg flex justify-center items-baseline gap-2">
                                     <span class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</span>
-                                    Active Users
+                                    <span>Active Users</span>
                                 </p>
                             </div>
                             <div class="text-center">
-                                <p class="text-slate-200 text-lg">
+                                <p class="text-slate-200 text-lg flex justify-center items-baseline gap-2">
                                     <span class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</span>
-                                    Countries
+                                    <span>Countries</span>
                                 </p>
                             </div>
                         </div>
                         
-                        <!-- CTA Buttons -->
                         <div class="flex flex-col sm:flex-row gap-4">
                             <button class="download-btn glow-button focusable text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                                 <i class="fas fa-download mr-2" aria-hidden="true"></i>
@@ -329,29 +316,20 @@
                         </p>
                     </div>
                     
-                    <!-- Right Content - App Preview -->
                     <div class="relative">
                         <div class="relative z-10">
                             <img src="promo.png" alt="Say It App Interface showing options to take picture and select image." class="w-full max-w-md mx-auto rounded-2xl shadow-2xl">
                         </div>
                         
-                        <!-- Floating Elements -->
-                        <div aria-hidden="true" class="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white animate-bounce z-20">
-                            <i class="fas fa-magic"></i>
                         </div>
-                        <div aria-hidden="true" class="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white animate-pulse z-20">
-                            <i class="fas fa-check"></i>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Global Distribution Map -->
-        <section class="py-20 bg-white">
+        <section class="py-20 bg-white" aria-labelledby="global-impact-heading">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                    <h2 id="global-impact-heading" class="text-4xl font-bold text-slate-900 mb-4">
                         Global <span class="gradient-text">Impact</span>
                     </h2>
                     <p class="text-xl text-slate-600 max-w-3xl mx-auto">
@@ -361,12 +339,10 @@
                 </div>
                 
                 <div class="bg-slate-50 rounded-2xl p-4 sm:p-8 shadow-lg fade-in border border-slate-200">
-                    <!-- Updated map div with responsive height -->
                     <div id="world-map" class="w-full h-[400px] sm:h-[500px]" role="img" aria-label="Global user distribution map"></div>
                     
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
                         <div class="text-center">
-                            <!-- Updated user counter -->
                             <div class="text-3xl font-bold text-blue-600 counter" data-target="40000" role="timer" aria-live="polite">0</div>
                             <p class="text-slate-600">Total Users</p>
                         </div>
@@ -387,11 +363,10 @@
             </div>
         </section>
 
-        <!-- Key Features -->
-        <section id="features" class="py-20 bg-slate-50">
+        <section id="features" class="py-20 bg-slate-50" aria-labelledby="features-heading">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                    <h2 id="features-heading" class="text-4xl font-bold text-slate-900 mb-4">
                         Why Choose <span class="gradient-text">Say It</span>?
                     </h2>
                     <p class="text-xl text-slate-600 max-w-3xl mx-auto">
@@ -401,7 +376,6 @@
                 </div>
                 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Feature 1: Instant Text-to-Speech -->
                     <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
                         <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
                             <i class="fas fa-bolt text-xl" aria-hidden="true"></i>
@@ -412,7 +386,6 @@
                         </p>
                     </div>
                     
-                    <!-- Feature 2: Privacy & Security -->
                     <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
                         <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
                             <i class="fas fa-shield-alt text-xl" aria-hidden="true"></i>
@@ -423,7 +396,6 @@
                         </p>
                     </div>
                     
-                    <!-- Feature 3: Simple & Accessible -->
                     <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
                         <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
                             <i class="fas fa-universal-access text-xl" aria-hidden="true"></i>
@@ -434,7 +406,6 @@
                         </p>
                     </div>
                     
-                    <!-- Feature 4: Works Offline -->
                     <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
                         <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
                             <i class="fas fa-wifi-slash text-xl" aria-hidden="true"></i>
@@ -448,11 +419,10 @@
             </div>
         </section>
 
-        <!-- Voice Customization Demo -->
-        <section class="py-20 bg-white">
+        <section class="py-20 bg-white" aria-labelledby="voice-demo-heading">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                    <h2 id="voice-demo-heading" class="text-4xl font-bold text-slate-900 mb-4">
                         Try <span class="gradient-text">Voice Customization</span>
                     </h2>
                     <p class="text-xl text-slate-600">
@@ -462,7 +432,6 @@
                 
                 <div class="bg-slate-50 rounded-2xl p-8 shadow-lg fade-in border border-slate-200">
                     <div class="grid md:grid-cols-2 gap-8">
-                        <!-- Controls -->
                         <div class="space-y-6">
                             <div>
                                 <label for="speed-slider" class="block text-sm font-medium text-slate-700 mb-2">
@@ -486,7 +455,6 @@
                             </button>
                         </div>
                         
-                        <!-- Waveform Visualization -->
                         <div class="waveform-container">
                             <div id="waveform-canvas" class="w-full h-24" aria-hidden="true"></div>
                             <p class="text-sm text-slate-500 text-center mt-2">
@@ -498,11 +466,10 @@
             </div>
         </section>
 
-        <!-- Language Support -->
-        <section class="py-20 bg-slate-50">
+        <section class="py-20 bg-slate-50" aria-labelledby="language-heading">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                    <h2 id="language-heading" class="text-4xl font-bold text-slate-900 mb-4">
                         <span class="gradient-text">10 Languages</span> Supported
                     </h2>
                     <p class="text-xl text-slate-600">
@@ -511,7 +478,6 @@
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 fade-in">
-                    <!-- Language Options (changed to buttons for accessibility) -->
                     <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇺🇸</div>
                         <h3 class="font-semibold text-slate-800">English (US)</h3>
@@ -572,10 +538,9 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section class="py-20 bg-blue-700">
+        <section class="py-20 bg-blue-700" aria-labelledby="cta-heading">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-4xl font-bold text-white mb-6">
+                <h2 id="cta-heading" class="text-4xl font-bold text-white mb-6">
                     Ready to Transform Your World?
                 </h2>
                 <p class="text-xl text-blue-100 mb-8">
@@ -601,7 +566,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -622,7 +586,6 @@
     </footer>
 
 
-    <!-- Main JavaScript -->
     <script src="main.js"></script>
 </body>
 </html>
