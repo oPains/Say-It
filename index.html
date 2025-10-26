@@ -26,39 +26,24 @@
             --color-bg-light: 248 250 252; /* slate-50 */
             --color-bg-dark: 15 23 42; /* slate-900 */
             --color-text-light: 226 232 240; /* slate-200 */
-            --color-text-medium: 71 85 105; /* slate-500 */
-            --color-text-dark: 30 41 59; /* slate-800 */
+            --color-text-medium: 71 85 105; /* slate-500 - Low contrast on white */
+            --color-text-dark: 30 41 59; /* slate-800 - Good contrast on white */
+            --color-black: 0 0 0; /* Pure black */
         }
 
         * {
             font-family: 'Inter', sans-serif;
         }
         
-        /* New Hero Background */
+        /* --- Assuming Hero Background IS WHITE/LIGHT based on screenshot --- */
         .hero-bg {
-            background-color: var(--color-bg-dark);
+             /* Keeping this for context, but applying white/light bg directly */
+            background-color: white; /* Ensure it's white or very light grey */
             position: relative;
             overflow: hidden;
         }
         
-        .aurora-effect {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                rgba(var(--color-primary-light), 0.1) 0%, 
-                rgba(var(--color-primary-dark), 0.2) 50%, 
-                rgba(var(--color-primary-light), 0.1) 100%);
-            animation: aurora-flow 8s ease-in-out infinite;
-            z-index: 1;
-        }
-        
-        @keyframes aurora-flow {
-            0%, 100% { transform: translateX(-10%) rotate(0deg); }
-            50% { transform: translateX(10%) rotate(2deg); }
-        }
+        /* Removed Aurora Effect as it was tied to dark bg */
         
         .fade-in {
             opacity: 0;
@@ -82,11 +67,10 @@
             transform: translateY(0);
         }
         
-        /* Updated Feature Card */
         .feature-card {
             transition: all 0.3s ease;
             background-color: white;
-            border: 1px solid #e2e8f0; /* slate-200 */
+            border: 1px solid #e2e8f0;
         }
         
         .feature-card:hover {
@@ -95,7 +79,6 @@
             border-color: rgba(var(--color-primary-light), 0.5);
         }
         
-        /* Updated Glow Button */
         .glow-button {
             position: relative;
             overflow: hidden;
@@ -108,7 +91,6 @@
             background-color: rgb(var(--color-primary));
         }
 
-        /* WCAG: Visible focus states for all interactive elements */
         .focusable {
             transition: outline-offset 0.1s ease, box-shadow 0.2s ease;
             outline: 2px solid transparent;
@@ -122,7 +104,6 @@
              box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
         }
 
-        /* Updated Stats Counter */
         .stats-counter {
             font-size: 3rem;
             font-weight: 800;
@@ -135,20 +116,16 @@
             padding: 1rem;
         }
         
-        /* --- REMOVED Particle Canvas Style --- */
-        
         .hero-content {
             position: relative;
             z-index: 2;
         }
         
         .gradient-text {
+             /* This is the main title color (blue) - Keep as is */
             color: rgb(var(--color-primary-light));
         }
         
-        /* --- REMOVED hero-text-sharp-shadow --- */
-        
-        /* Updated Nav Link */
         .nav-link {
             position: relative;
             transition: color 0.3s ease;
@@ -174,7 +151,6 @@
             width: 100%;
         }
 
-        /* Active link style for current page */
         .nav-link.active {
             color: rgb(var(--color-primary-light));
         }
@@ -266,23 +242,25 @@
     </nav>
 
     <main id="main-content">
-        <section class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
-            <div class="aurora-effect" aria-hidden="true"></div>
-            
+        <section class="bg-white min-h-screen flex items-center pt-16 md:pt-0">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 hero-content">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="text-white">
-                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100"> <span class="hero-title gradient-text"></span>
-                        </h1>
-                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed"> An accessibility app that helps the visually impaired read printed text through speech. 
-                            Join <strong class="text-yellow-300">40,000 users</strong> across <strong class="text-yellow-300">18 countries</strong>!
+                    <div class="text-slate-900">
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-900">
+                            <span class="hero-title gradient-text">Accessibility for Everyone</span> </h1>
+                        <p class="text-xl lg:text-2xl mb-8 text-black leading-relaxed"> An accessibility app that helps the visually impaired read printed text through speech. 
+                            Join <strong class="font-semibold">40,000 users</strong> across <strong class="font-semibold">18 countries</strong>!
                         </p>
                         
                         <div class="grid grid-cols-2 gap-6 mb-8">
                             <div class="text-center">
-                                <div class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</div> <p class="text-slate-200 text-lg">Active Users</p> </div>
+                                <div class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</div>
+                                <p class="text-black text-lg">Active Users</p>
+                             </div>
                             <div class="text-center">
-                                <div class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</div> <p class="text-slate-200 text-lg">Countries</p> </div>
+                                <div class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</div>
+                                <p class="text-black text-lg">Countries</p>
+                            </div>
                         </div>
                         
                         <div class="flex flex-col sm:flex-row gap-4">
@@ -292,7 +270,8 @@
                             </button>
                         </div>
                         
-                        <p class="text-sm text-slate-300 mt-4"> <i class="fas fa-android mr-1" aria-hidden="true"></i>
+                        <p class="text-sm text-black mt-4">
+                            <i class="fas fa-android mr-1" aria-hidden="true"></i>
                             Currently available for Android only
                         </p>
                     </div>
@@ -301,13 +280,12 @@
                         <div class="relative z-10">
                             <img src="promo.png" alt="Say It App Interface showing options to take picture and select image." class="w-full max-w-md mx-auto rounded-2xl shadow-2xl">
                         </div>
-                        
-                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-20 bg-white" aria-labelledby="global-impact-heading">
+       <section class="py-20 bg-white" aria-labelledby="global-impact-heading">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
                     <h2 id="global-impact-heading" class="text-4xl font-bold text-slate-900 mb-4">
@@ -430,7 +408,7 @@
                                     class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focusable-inset">
                             </div>
                             
-                            <button id="play-demo" class="w-.full glow-button focusable text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                            <button id="play-demo" class="w-full glow-button focusable text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
                                 <i class="fas fa-play mr-2" aria-hidden="true"></i>
                                 Play Demo
                             </button>
