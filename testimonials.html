@@ -6,17 +6,14 @@
     <title>Testimonials - Say It App | Real User Stories & Reviews</title>
     <meta name="description" content="Read real testimonials from Say It app users. Discover how our text-to-speech app is transforming lives across 18 countries.">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom Styles -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
@@ -135,14 +132,33 @@
         .nav-link:hover::after {
             width: 100%;
         }
+
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .glow-button:hover::before {
+            left: 100%;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-    <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <div class="flex items-center space-x-2">
                     <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm"></i>
@@ -150,31 +166,28 @@
                     <span class="text-xl font-bold text-gray-800">Say It</span>
                 </div>
                 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a>
                     <a href="features.html" class="text-gray-600 hover:text-gray-800">Features</a>
                     <a href="#testimonials" class="text-red-400 font-medium">Testimonials</a>
                     <a href="about.html" class="text-gray-600 hover:text-gray-800">About</a>
-                    <button class="bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
                 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-toggle" class="md:hidden p-2">
                     <i class="fas fa-bars text-gray-600"></i>
                 </button>
             </div>
             
-            <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
                     <a href="index.html" class="text-gray-600 hover:text-gray-800 py-2">Home</a>
                     <a href="features.html" class="text-gray-600 hover:text-gray-800 py-2">Features</a>
                     <a href="#testimonials" class="text-red-400 font-medium py-2">Testimonials</a>
                     <a href="about.html" class="text-gray-600 hover:text-gray-800 py-2">About</a>
-                    <button class="bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
+                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -182,7 +195,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="pt-24 pb-12 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -197,7 +209,6 @@
         </div>
     </section>
 
-    <!-- Impact Statistics -->
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 fade-in">
@@ -239,7 +250,6 @@
         </div>
     </section>
 
-    <!-- Featured Testimonials Carousel -->
     <section id="testimonials" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 fade-in">
@@ -254,7 +264,6 @@
             <div class="testimonial-carousel splide fade-in">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <!-- Testimonial 1: Sarah M. -->
                         <li class="splide__slide">
                             <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                 <div class="quote-mark">"</div>
@@ -292,7 +301,6 @@
                             </div>
                         </li>
                         
-                        <!-- Testimonial 2: Ahmed K. -->
                         <li class="splide__slide">
                             <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                 <div class="quote-mark">"</div>
@@ -330,7 +338,6 @@
                             </div>
                         </li>
                         
-                        <!-- Testimonial 3: Michael T. -->
                         <li class="splide__slide">
                             <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                 <div class="quote-mark">"</div>
@@ -368,7 +375,6 @@
                             </div>
                         </li>
                         
-                        <!-- Testimonial 4: Maria S. -->
                         <li class="splide__slide">
                             <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                 <div class="quote-mark">"</div>
@@ -406,7 +412,6 @@
                             </div>
                         </li>
                         
-                        <!-- Testimonial 5: David L. -->
                         <li class="splide__slide">
                             <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                 <div class="quote-mark">"</div>
@@ -444,7 +449,6 @@
                             </div>
                         </li>
                         
-                        <!-- Testimonial 6: Elena R. -->
                         <li class="splide__slide">
                             <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                 <div class="quote-mark">"</div>
@@ -487,7 +491,6 @@
         </div>
     </section>
 
-    <!-- User Satisfaction Chart -->
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 fade-in">
@@ -500,12 +503,10 @@
             </div>
             
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Chart -->
                 <div class="fade-in">
                     <div id="satisfaction-chart" style="width: 100%; height: 400px;"></div>
                 </div>
                 
-                <!-- Key Metrics -->
                 <div class="space-y-6 fade-in">
                     <div class="bg-gray-50 rounded-xl p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-4">
@@ -588,7 +589,6 @@
         </div>
     </section>
 
-    <!-- Success Stories -->
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 fade-in">
@@ -601,7 +601,6 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Success Story 1 -->
                 <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white mr-4">
@@ -623,7 +622,6 @@
                     </div>
                 </div>
                 
-                <!-- Success Story 2 -->
                 <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white mr-4">
@@ -645,7 +643,6 @@
                     </div>
                 </div>
                 
-                <!-- Success Story 3 -->
                 <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-gradient-to-r from-pink-400 to-red-500 rounded-full flex items-center justify-center text-white mr-4">
@@ -667,7 +664,6 @@
                     </div>
                 </div>
                 
-                <!-- Success Story 4 -->
                 <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white mr-4">
@@ -689,7 +685,6 @@
                     </div>
                 </div>
                 
-                <!-- Success Story 5 -->
                 <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full flex items-center justify-center text-white mr-4">
@@ -711,7 +706,6 @@
                     </div>
                 </div>
                 
-                <!-- Success Story 6 -->
                 <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full flex items-center justify-center text-white mr-4">
@@ -736,7 +730,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="py-20 bg-gradient-to-r from-red-400 to-teal-400">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-4xl font-bold text-white mb-6">
@@ -747,7 +740,7 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                <button class="download-btn glow-button bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                     <i class="fas fa-download mr-2"></i>
                     Download Say It Free
                 </button>
@@ -763,7 +756,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -783,10 +775,8 @@
         </div>
     </footer>
 
-    <!-- Main JavaScript -->
     <script src="main.js"></script>
     
-    <!-- Testimonials-specific JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize satisfaction chart
