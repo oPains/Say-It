@@ -6,15 +6,12 @@
     <title>Features - Say It App | Advanced Text-to-Speech Technology</title>
     <meta name="description" content="Discover the powerful features of Say It app including AI-powered OCR, offline functionality, privacy protection, and multi-language support.">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom Styles -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
@@ -104,14 +101,33 @@
             background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             color: white;
         }
+
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .glow-button:hover::before {
+            left: 100%;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-    <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <div class="flex items-center space-x-2">
                     <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm"></i>
@@ -119,31 +135,28 @@
                     <span class="text-xl font-bold text-gray-800">Say It</span>
                 </div>
                 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a>
                     <a href="#features" class="text-red-400 font-medium">Features</a>
                     <a href="testimonials.html" class="text-gray-600 hover:text-gray-800">Testimonials</a>
                     <a href="about.html" class="text-gray-600 hover:text-gray-800">About</a>
-                    <button class="bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
                 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-toggle" class="md:hidden p-2">
                     <i class="fas fa-bars text-gray-600"></i>
                 </button>
             </div>
             
-            <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
                     <a href="index.html" class="text-gray-600 hover:text-gray-800 py-2">Home</a>
                     <a href="#features" class="text-red-400 font-medium py-2">Features</a>
                     <a href="testimonials.html" class="text-gray-600 hover:text-gray-800 py-2">Testimonials</a>
                     <a href="about.html" class="text-gray-600 hover:text-gray-800 py-2">About</a>
-                    <button class="bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
+                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -151,7 +164,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="pt-24 pb-12 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -166,7 +178,6 @@
         </div>
     </section>
 
-    <!-- Feature Categories -->
     <section id="features" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 fade-in">
@@ -179,7 +190,6 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- AI-Powered OCR -->
                 <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
                     <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl flex items-center justify-center text-white mb-6">
                         <i class="fas fa-eye text-2xl"></i>
@@ -197,7 +207,6 @@
                     </ul>
                 </div>
                 
-                <!-- Multi-Language Support -->
                 <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
                     <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-xl flex items-center justify-center text-white mb-6">
                         <i class="fas fa-globe text-2xl"></i>
@@ -215,7 +224,6 @@
                     </ul>
                 </div>
                 
-                <!-- Voice Customization -->
                 <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
                     <div class="w-16 h-16 bg-gradient-to-r from-pink-400 to-red-500 rounded-xl flex items-center justify-center text-white mb-6">
                         <i class="fas fa-sliders-h text-2xl"></i>
@@ -233,7 +241,6 @@
                     </ul>
                 </div>
                 
-                <!-- Privacy Protection -->
                 <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
                     <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center text-white mb-6">
                         <i class="fas fa-lock text-2xl"></i>
@@ -251,7 +258,6 @@
                     </ul>
                 </div>
                 
-                <!-- Accessibility Design -->
                 <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
                     <div class="w-16 h-16 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-xl flex items-center justify-center text-white mb-6">
                         <i class="fas fa-universal-access text-2xl"></i>
@@ -269,7 +275,6 @@
                     </ul>
                 </div>
                 
-                <!-- Offline Functionality -->
                 <div class="feature-card bg-white rounded-xl p-8 shadow-lg slide-up">
                     <div class="w-16 h-16 bg-gradient-to-r from-orange-400 to-red-500 rounded-xl flex items-center justify-center text-white mb-6">
                         <i class="fas fa-wifi-slash text-2xl"></i>
@@ -290,206 +295,7 @@
         </div>
     </section>
 
-    <!-- Feature Comparison Matrix -->
     <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    How Say It <span class="gradient-text">Compares</span>
-                </h2>
-                <p class="text-xl text-gray-600">
-                    See why Say It stands out from other text-to-speech applications.
-                </p>
-            </div>
-            
-            <!-- Category Buttons -->
-            <div class="flex flex-wrap justify-center gap-4 mb-8 fade-in">
-                <button class="category-btn active px-6 py-3 rounded-lg font-medium" data-category="privacy">
-                    🔒 Privacy
-                </button>
-                <button class="category-btn px-6 py-3 rounded-lg font-medium bg-white shadow-md" data-category="accessibility">
-                    ♿ Accessibility
-                </button>
-                <button class="category-btn px-6 py-3 rounded-lg font-medium bg-white shadow-md" data-category="features">
-                    ⚡ Features
-                </button>
-                <button class="category-btn px-6 py-3 rounded-lg font-medium bg-white shadow-md" data-category="languages">
-                    🌍 Languages
-                </button>
-            </div>
-            
-            <!-- Privacy Comparison -->
-            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden fade-in" data-category="privacy">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Privacy Feature</th>
-                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 font-medium">100% Offline Processing</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Zero Data Collection</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 font-medium">GDPR Compliant</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">No Cloud Storage</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Accessibility Comparison -->
-            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden hidden fade-in" data-category="accessibility">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Accessibility Feature</th>
-                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 font-medium">WCAG 2.1 AA Compliant</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Custom Arabic OCR</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 font-medium">Large Touch Targets</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Screen Reader Optimized</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Features Comparison -->
-            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden hidden fade-in" data-category="features">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Feature</th>
-                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 font-medium">AI-Powered OCR</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Voice Customization</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 font-medium">Batch Processing</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-times cross-icon"></i></td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Real-time Processing</td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-minus text-gray-400 text-xl"></i></td>
-                                <td class="px-6 py-4 text-center"><i class="fas fa-check check-icon"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Languages Comparison -->
-            <div class="comparison-table bg-white rounded-2xl shadow-lg overflow-hidden hidden fade-in" data-category="languages">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-4 text-left font-semibold text-gray-800">Language Support</th>
-                                <th class="px-6 py-4 text-center font-semibold text-red-400">Say It</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor A</th>
-                                <th class="px-6 py-4 text-center font-semibold text-gray-600">Competitor B</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 font-medium">English Support</td>
-                                <td class="px-6 py-4 text-center">✓</td>
-                                <td class="px-6 py-4 text-center">✓</td>
-                                <td class="px-6 py-4 text-center">✓</td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">European Languages</td>
-                                <td class="px-6 py-4 text-center">5 Languages</td>
-                                <td class="px-6 py-4 text-center">3 Languages</td>
-                                <td class="px-6 py-4 text-center">4 Languages</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 font-medium">Asian Languages</td>
-                                <td class="px-6 py-4 text-center">Japanese, Chinese</td>
-                                <td class="px-6 py-4 text-center">Chinese Only</td>
-                                <td class="px-6 py-4 text-center">Japanese Only</td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Total Languages</td>
-                                <td class="px-6 py-4 text-center font-bold text-red-400">10</td>
-                                <td class="px-6 py-4 text-center">5</td>
-                                <td class="px-6 py-4 text-center">7</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Specifications -->
-    <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 fade-in">
                 <h2 class="text-4xl font-bold text-gray-800 mb-4">
@@ -501,7 +307,6 @@
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- OCR Technology -->
                 <div class="tech-spec p-6 rounded-xl fade-in">
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">
                         <i class="fas fa-eye text-blue-500 mr-2"></i>
@@ -531,7 +336,6 @@
                     </div>
                 </div>
                 
-                <!-- Speech Synthesis -->
                 <div class="tech-spec p-6 rounded-xl fade-in">
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">
                         <i class="fas fa-volume-up text-green-500 mr-2"></i>
@@ -561,7 +365,6 @@
                     </div>
                 </div>
                 
-                <!-- Privacy & Security -->
                 <div class="tech-spec p-6 rounded-xl fade-in">
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">
                         <i class="fas fa-shield-alt text-red-500 mr-2"></i>
@@ -591,7 +394,6 @@
                     </div>
                 </div>
                 
-                <!-- System Requirements -->
                 <div class="tech-spec p-6 rounded-xl fade-in">
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">
                         <i class="fas fa-cog text-purple-500 mr-2"></i>
@@ -624,8 +426,7 @@
         </div>
     </section>
 
-    <!-- Use Cases -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 fade-in">
                 <h2 class="text-4xl font-bold text-gray-800 mb-4">
@@ -636,7 +437,6 @@
                 </p>
             </div>
             
-            <!-- Use Case Selector -->
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 fade-in">
                 <div class="use-case-card active bg-white p-6 rounded-xl shadow-lg text-center" data-case="visually-impaired">
                     <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
@@ -667,10 +467,8 @@
                 </div>
             </div>
             
-            <!-- Use Case Details -->
-            <div class="bg-white rounded-2xl p-8 shadow-lg fade-in">
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg fade-in">
                 <div id="use-case-content">
-                    <!-- Visually Impaired Content (Default) -->
                     <div class="use-case-detail" data-case="visually-impaired">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4">
                             <i class="fas fa-eye text-blue-500 mr-2"></i>
@@ -700,7 +498,6 @@
                         </div>
                     </div>
                     
-                    <!-- Elderly Content -->
                     <div class="use-case-detail hidden" data-case="elderly">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4">
                             <i class="fas fa-user-friends text-green-500 mr-2"></i>
@@ -730,7 +527,6 @@
                         </div>
                     </div>
                     
-                    <!-- Travelers Content -->
                     <div class="use-case-detail hidden" data-case="travelers">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4">
                             <i class="fas fa-plane text-orange-500 mr-2"></i>
@@ -760,7 +556,6 @@
                         </div>
                     </div>
                     
-                    <!-- Students Content -->
                     <div class="use-case-detail hidden" data-case="students">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4">
                             <i class="fas fa-graduation-cap text-purple-500 mr-2"></i>
@@ -794,7 +589,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="py-20 bg-gradient-to-r from-red-400 to-teal-400">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-4xl font-bold text-white mb-6">
@@ -805,7 +599,7 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                <button class="download-btn glow-button bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                     <i class="fas fa-download mr-2"></i>
                     Download Free APK
                 </button>
@@ -817,7 +611,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -837,39 +630,11 @@
         </div>
     </footer>
 
-    <!-- Main JavaScript -->
     <script src="main.js"></script>
     
-    <!-- Feature-specific JavaScript -->
     <script>
-        // Feature comparison functionality
+        // Use case functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            const comparisonTables = document.querySelectorAll('.comparison-table');
-            
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const category = this.dataset.category;
-                    
-                    // Update active button
-                    categoryButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                        btn.classList.add('bg-white', 'shadow-md');
-                    });
-                    this.classList.add('active');
-                    this.classList.remove('bg-white', 'shadow-md');
-                    
-                    // Show relevant table
-                    comparisonTables.forEach(table => {
-                        table.classList.add('hidden');
-                        if (table.dataset.category === category) {
-                            table.classList.remove('hidden');
-                        }
-                    });
-                });
-            });
-            
-            // Use case functionality
             const useCaseCards = document.querySelectorAll('.use-case-card');
             const useCaseDetails = document.querySelectorAll('.use-case-detail');
             
