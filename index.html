@@ -128,6 +128,8 @@
             font-size: 3rem;
             font-weight: 800;
             color: rgb(var(--color-primary-light));
+            /* --- FIX: Added text shadow for contrast --- */
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
         
         .waveform-container {
@@ -153,6 +155,13 @@
         
         .gradient-text {
             color: rgb(var(--color-primary-light));
+            /* --- FIX: Added text shadow for contrast --- */
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+        
+        /* --- FIX: Added text shadow for hero contrast --- */
+        .hero-text-shadow {
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
         }
         
         /* Updated Nav Link */
@@ -280,26 +289,22 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 hero-content">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="text-white">
-                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100">
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100 hero-text-shadow">
                             <span class="hero-title gradient-text"></span>
                         </h1>
-                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed">
+                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed hero-text-shadow">
                             An accessibility app that helps the visually impaired read printed text through speech. 
                             Join <strong class="text-yellow-300">40,000 users</strong> across <strong class="text-yellow-300">18 countries</strong>!
                         </p>
                         
                         <div class="grid grid-cols-2 gap-6 mb-8">
                             <div class="text-center">
-                                <p class="text-slate-200 text-lg flex justify-center items-baseline gap-2">
-                                    <span class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</span>
-                                    <span>Active Users</span>
-                                </p>
+                                <div class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</div>
+                                <p class="text-slate-200 text-lg hero-text-shadow">Active Users</p>
                             </div>
                             <div class="text-center">
-                                <p class="text-slate-200 text-lg flex justify-center items-baseline gap-2">
-                                    <span class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</span>
-                                    <span>Countries</span>
-                                </p>
+                                <div class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</div>
+                                <p class="text-slate-200 text-lg hero-text-shadow">Countries</p>
                             </div>
                         </div>
                         
@@ -310,7 +315,7 @@
                             </button>
                         </div>
                         
-                        <p class="text-sm text-slate-300 mt-4">
+                        <p class="text-sm text-slate-300 mt-4 hero-text-shadow">
                             <i class="fas fa-android mr-1" aria-hidden="true"></i>
                             Currently available for Android only
                         </p>
@@ -457,7 +462,7 @@
                         
                         <div class="waveform-container">
                             <div id="waveform-canvas" class="w-full h-24" aria-hidden="true"></div>
-                            <p class="text-sm text-slate-500 text-center mt-2">
+                            <p class="text-sm text-slate-600 text-center mt-2">
                                 Real-time voice visualization
                             </p>
                         </div>
