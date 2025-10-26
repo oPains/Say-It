@@ -6,15 +6,12 @@
     <title>Features - Say It App | Advanced Text-to-Speech Technology</title>
     <meta name="description" content="Discover the powerful features of Say It app including AI-powered OCR, offline functionality, privacy protection, and multi-language support.">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom Styles -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
@@ -34,6 +31,47 @@
             font-family: 'Inter', sans-serif;
         }
         
+        /* --- [FIX 2.4.1] WCAG Bypass Block --- */
+        .skip-link {
+            position: absolute;
+            top: -100px; /* Hidden off-screen */
+            left: 1rem;
+            background: rgb(var(--color-primary-dark));
+            color: white;
+            padding: 0.75rem 1.25rem;
+            z-index: 9999;
+            transition: top 0.3s ease;
+            font-weight: 600;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .skip-link:focus {
+            top: 0; /* Becomes visible on focus */
+        }
+
+        /* --- [FIX 2.4.7] WCAG Focus Visible --- */
+        *:focus-visible {
+            outline: 3px solid rgb(var(--color-primary-dark));
+            outline-offset: 3px;
+            border-radius: 4px;
+            box-shadow: 0 0 0 5px rgba(var(--color-primary-light), 0.5);
+        }
+        
+        .focusable-inset:focus-visible {
+             outline: none;
+             box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
+        }
+        
+        .splide__arrow:focus-visible {
+            outline-offset: 2px;
+            background: rgb(var(--color-primary));
+        }
+        .splide__pagination__page:focus-visible {
+            outline-offset: 2px;
+            background: rgb(var(--color-primary-light));
+        }
+        
+        /* --- Original Styles Below --- */
         .gradient-text {
             color: rgb(var(--color-primary-light));
         }
@@ -110,18 +148,6 @@
              background-color: rgb(var(--color-primary));
         }
 
-        /* WCAG: Visible focus states */
-        .focusable {
-            transition: outline-offset 0.1s ease, box-shadow 0.2s ease;
-            outline: 2px solid transparent;
-            outline-offset: 2px;
-        }
-        .focusable:focus-visible {
-            outline-offset: 0px;
-            box-shadow: 0 0 0 3px rgba(var(--color-primary-light), 0.7);
-        }
-
-        /* Nav link focus */
         .nav-link {
             position: relative;
             transition: color 0.3s ease;
@@ -147,50 +173,48 @@
             width: 100%;
         }
 
+        /* --- [FIX 1.4.3] WCAG Contrast --- */
         .nav-link.active {
-            color: rgb(var(--color-primary-light));
+            color: rgb(var(--color-primary));
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
-    <!-- Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <a href="index.html" class="flex items-center space-x-2 focusable rounded-lg" aria-label="Say It Homepage">
+                <a href="index.html" class="flex items-center space-x-2 rounded-lg" aria-label="Say It Homepage">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
                     </div>
                     <span class="text-xl font-bold text-slate-900">Say It</span>
                 </a>
                 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="nav-link focusable rounded-md">Home</a>
-                    <a href="#features" class="nav-link active focusable rounded-md">Features</a>
-                    <a href="testimonials.html" class="nav-link focusable rounded-md">Testimonials</a>
-                    <a href="about.html" class="nav-link focusable rounded-md">About</a>
-                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all focusable">
+                    <a href="index.html" class="nav-link rounded-md">Home</a>
+                    <a href="#features" class="nav-link active rounded-md">Features</a>
+                    <a href="testimonials.html" class="nav-link rounded-md">Testimonials</a>
+                    <a href="about.html" class="nav-link rounded-md">About</a>
+                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
                 
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-toggle" class="md:hidden p-2 focusable rounded-md" aria-controls="mobile-menu" aria-expanded="false">
+                <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-md" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <i class="fas fa-bars text-slate-600" aria-hidden="true"></i>
                 </button>
             </div>
             
-            <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <a href="index.html" class="nav-link focusable rounded-md py-2">Home</a>
-                    <a href="#features" class="nav-link active focusable rounded-md py-2">Features</a>
-                    <a href="testimonials.html" class="nav-link focusable rounded-md py-2">Testimonials</a>
-                    <a href="about.html" class="nav-link focusable rounded-md py-2">About</a>
-                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium mt-2 focusable">
+                    <a href="index.html" class="nav-link rounded-md py-2">Home</a>
+                    <a href="#features" class="nav-link active rounded-md py-2">Features</a>
+                    <a href="testimonials.html" class="nav-link rounded-md py-2">Testimonials</a>
+                    <a href="about.html" class="nav-link rounded-md py-2">About</a>
+                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -198,9 +222,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content">
-        <!-- Hero Section -->
         <section class="pt-24 pb-12 bg-slate-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
@@ -215,7 +237,6 @@
             </div>
         </section>
 
-        <!-- Feature Categories -->
         <section id="features" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
@@ -228,7 +249,6 @@
                 </div>
                 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- AI-Powered OCR -->
                     <div class="feature-card rounded-xl p-8 shadow-lg slide-up">
                         <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-eye text-2xl" aria-hidden="true"></i>
@@ -246,7 +266,6 @@
                         </ul>
                     </div>
                     
-                    <!-- Multi-Language Support -->
                     <div class="feature-card rounded-xl p-8 shadow-lg slide-up">
                         <div class="w-16 h-16 bg-green-100 text-green-700 rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-globe text-2xl" aria-hidden="true"></i>
@@ -264,7 +283,6 @@
                         </ul>
                     </div>
                     
-                    <!-- Voice Customization -->
                     <div class="feature-card rounded-xl p-8 shadow-lg slide-up">
                         <div class="w-16 h-16 bg-pink-100 text-pink-700 rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-sliders-h text-2xl" aria-hidden="true"></i>
@@ -282,7 +300,6 @@
                         </ul>
                     </div>
                     
-                    <!-- Privacy Protection -->
                     <div class="feature-card rounded-xl p-8 shadow-lg slide-up">
                         <div class="w-16 h-16 bg-green-100 text-green-700 rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-lock text-2xl" aria-hidden="true"></i>
@@ -300,7 +317,6 @@
                         </ul>
                     </div>
                     
-                    <!-- Accessibility Design -->
                     <div class="feature-card rounded-xl p-8 shadow-lg slide-up">
                         <div class="w-16 h-16 bg-purple-100 text-purple-700 rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-universal-access text-2xl" aria-hidden="true"></i>
@@ -318,7 +334,6 @@
                         </ul>
                     </div>
                     
-                    <!-- Offline Functionality -->
                     <div class="feature-card rounded-xl p-8 shadow-lg slide-up">
                         <div class="w-16 h-16 bg-orange-100 text-orange-700 rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-wifi-slash text-2xl" aria-hidden="true"></i>
@@ -339,7 +354,6 @@
             </div>
         </section>
 
-        <!-- Technical Specifications -->
         <section class="py-20 bg-slate-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
@@ -352,7 +366,6 @@
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-8">
-                    <!-- OCR Technology -->
                     <div class="tech-spec p-6 rounded-xl fade-in">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">
                             <i class="fas fa-eye text-blue-500 mr-2" aria-hidden="true"></i>
@@ -382,7 +395,6 @@
                         </div>
                     </div>
                     
-                    <!-- Speech Synthesis -->
                     <div class="tech-spec p-6 rounded-xl fade-in">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">
                             <i class="fas fa-volume-up text-green-500 mr-2" aria-hidden="true"></i>
@@ -412,7 +424,6 @@
                         </div>
                     </div>
                     
-                    <!-- Privacy & Security -->
                     <div class="tech-spec p-6 rounded-xl fade-in">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">
                             <i class="fas fa-shield-alt text-red-500 mr-2" aria-hidden="true"></i>
@@ -442,7 +453,6 @@
                         </div>
                     </div>
                     
-                    <!-- System Requirements -->
                     <div class="tech-spec p-6 rounded-xl fade-in">
                         <h3 class="text-2xl font-bold text-slate-900 mb-4">
                             <i class="fas fa-cog text-purple-500 mr-2" aria-hidden="true"></i>
@@ -475,7 +485,6 @@
             </div>
         </section>
 
-        <!-- Use Cases -->
         <section class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
@@ -487,30 +496,29 @@
                     </p>
                 </div>
                 
-                <!-- Use Case Selector (WCAG Tab Panel) -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 fade-in" role="tablist" aria-label="Use cases">
-                    <button class="use-case-card active bg-white p-6 rounded-xl shadow-lg text-center focusable" data-case="visually-impaired" role="tab" aria-selected="true" id="tab-vi" aria-controls="tabpanel-vi">
+                    <button class="use-case-card active bg-white p-6 rounded-xl shadow-lg text-center" data-case="visually-impaired" role="tab" aria-selected="true" id="tab-vi" aria-controls="tabpanel-vi">
                         <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-eye text-2xl" aria-hidden="true"></i>
                         </div>
                         <h3 class="font-semibold text-slate-800">👁️ Visually Impaired</h3>
                     </button>
                     
-                    <button class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center focusable" data-case="elderly" role="tab" aria-selected="false" id="tab-elderly" aria-controls="tabpanel-elderly">
+                    <button class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center" data-case="elderly" role="tab" aria-selected="false" id="tab-elderly" aria-controls="tabpanel-elderly">
                         <div class="w-16 h-16 bg-green-100 text-green-700 rounded-full flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-user-friends text-2xl" aria-hidden="true"></i>
                         </div>
                         <h3 class="font-semibold text-slate-800">💊 Elderly Users</h3>
                     </button>
                     
-                    <button class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center focusable" data-case="travelers" role="tab" aria-selected="false" id="tab-travelers" aria-controls="tabpanel-travelers">
+                    <button class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center" data-case="travelers" role="tab" aria-selected="false" id="tab-travelers" aria-controls="tabpanel-travelers">
                         <div class="w-16 h-16 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-plane text-2xl" aria-hidden="true"></i>
                         </div>
                         <h3 class="font-semibold text-slate-800">🌍 Travelers</h3>
                     </button>
                     
-                    <button class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center focusable" data-case="students" role="tab" aria-selected="false" id="tab-students" aria-controls="tabpanel-students">
+                    <button class="use-case-card bg-white p-6 rounded-xl shadow-lg text-center" data-case="students" role="tab" aria-selected="false" id="tab-students" aria-controls="tabpanel-students">
                         <div class="w-16 h-16 bg-pink-100 text-pink-700 rounded-full flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-graduation-cap text-2xl" aria-hidden="true"></i>
                         </div>
@@ -518,10 +526,8 @@
                     </button>
                 </div>
                 
-                <!-- Use Case Details -->
                 <div class="bg-slate-50 rounded-2xl p-8 shadow-lg fade-in border border-slate-200">
                     <div id="use-case-content">
-                        <!-- Visually Impaired Content (Default) -->
                         <div class="use-case-detail" data-case="visually-impaired" role="tabpanel" id="tabpanel-vi" aria-labelledby="tab-vi">
                             <h3 class="text-2xl font-bold text-slate-900 mb-4">
                                 <i class="fas fa-eye text-blue-500 mr-2" aria-hidden="true"></i>
@@ -551,7 +557,6 @@
                             </div>
                         </div>
                         
-                        <!-- Elderly Content -->
                         <div class="use-case-detail hidden" data-case="elderly" role="tabpanel" id="tabpanel-elderly" aria-labelledby="tab-elderly">
                             <h3 class="text-2xl font-bold text-slate-900 mb-4">
                                 <i class="fas fa-user-friends text-green-500 mr-2" aria-hidden="true"></i>
@@ -581,7 +586,6 @@
                             </div>
                         </div>
                         
-                        <!-- Travelers Content -->
                         <div class="use-case-detail hidden" data-case="travelers" role="tabpanel" id="tabpanel-travelers" aria-labelledby="tab-travelers">
                             <h3 class="text-2xl font-bold text-slate-900 mb-4">
                                 <i class="fas fa-plane text-orange-500 mr-2" aria-hidden="true"></i>
@@ -611,7 +615,6 @@
                             </div>
                         </div>
                         
-                        <!-- Students Content -->
                         <div class="use-case-detail hidden" data-case="students" role="tabpanel" id="tabpanel-students" aria-labelledby="tab-students">
                             <h3 class="text-2xl font-bold text-slate-900 mb-4">
                                 <i class="fas fa-graduation-cap text-purple-500 mr-2" aria-hidden="true"></i>
@@ -645,7 +648,6 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
         <section class="py-20 bg-blue-700">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-4xl font-bold text-white mb-6">
@@ -656,11 +658,11 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="download-btn glow-button bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all focusable">
+                    <button class="download-btn glow-button bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                         <i class="fas fa-download mr-2" aria-hidden="true"></i>
                         Download Free APK
                     </button>
-                    <a href="testimonials.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all focusable">
+                    <a href="testimonials.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all">
                         <i class="fas fa-users mr-2" aria-hidden="true"></i>
                         Read User Stories
                     </a>
@@ -669,7 +671,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -689,36 +690,64 @@
         </div>
     </footer>
 
-    <!-- Main JavaScript -->
     <script src="main.js"></script>
     
-    <!-- Feature-specific JavaScript -->
     <script>
-        // Use case tab panel functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const useCaseTablist = document.querySelector('[role="tablist"]');
             const useCaseTabs = document.querySelectorAll('.use-case-card[role="tab"]');
             const useCasePanels = document.querySelectorAll('.use-case-detail[role="tabpanel"]');
             
+            // Function to switch tabs
+            function switchTab(newTab) {
+                const caseType = newTab.dataset.case;
+
+                // Update tab active state and aria-selected
+                useCaseTabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                newTab.classList.add('active');
+                newTab.setAttribute('aria-selected', 'true');
+                
+                // Show relevant content panel
+                useCasePanels.forEach(panel => {
+                    panel.classList.add('hidden');
+                    if (panel.dataset.case === caseType) {
+                        panel.classList.remove('hidden');
+                    }
+                });
+            }
+
+            // Add click event listener
             useCaseTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
-                    const caseType = this.dataset.case;
-                    
-                    // Update tab active state and aria-selected
-                    useCaseTabs.forEach(t => {
-                        t.classList.remove('active');
-                        t.setAttribute('aria-selected', 'false');
-                    });
-                    this.classList.add('active');
-                    this.setAttribute('aria-selected', 'true');
-                    
-                    // Show relevant content panel
-                    useCasePanels.forEach(panel => {
-                        panel.classList.add('hidden');
-                        if (panel.dataset.case === caseType) {
-                            panel.classList.remove('hidden');
-                        }
-                    });
+                    switchTab(this);
                 });
+            });
+
+            // --- [NEW] Add keyboard navigation ---
+            useCaseTablist.addEventListener('keydown', (e) => {
+                let currentTab = document.activeElement;
+                let currentIndex = Array.from(useCaseTabs).indexOf(currentTab);
+
+                if (currentIndex === -1) {
+                    return; // Not focused on a tab
+                }
+
+                let nextIndex = currentIndex;
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    nextIndex = (currentIndex + 1) % useCaseTabs.length;
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    nextIndex = (currentIndex - 1 + useCaseTabs.length) % useCaseTabs.length;
+                }
+
+                if (nextIndex !== currentIndex) {
+                    useCaseTabs[nextIndex].focus();
+                    switchTab(useCaseTabs[nextIndex]);
+                }
             });
         });
     </script>
