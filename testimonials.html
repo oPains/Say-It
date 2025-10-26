@@ -3,43 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testimonials - Say It App | Real User Stories & Reviews</title>
-    <meta name="description" content="Read real testimonials from Say It app users. Discover how our text-to-speech app is transforming lives across 18 countries.">
+    <title>Say It - See Through Sound | Accessibility Text-to-Speech App</title>
+    <meta name="description" content="Say It is an accessibility app that helps the visually impaired read printed text through speech. Join 40,000 users across 18 countries.">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Custom Styles -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
+        :root {
+            /* New Color Theme */
+            --color-primary: 29 78 216; /* blue-700 */
+            --color-primary-light: 59 130 246; /* blue-600 */
+            --color-primary-dark: 30 64 175; /* blue-800 */
+            --color-bg-light: 248 250 252; /* slate-50 */
+            --color-bg-dark: 15 23 42; /* slate-900 */
+            --color-text-light: 226 232 240; /* slate-200 */
+            --color-text-medium: 71 85 105; /* slate-500 */
+            --color-text-dark: 30 41 59; /* slate-800 */
+        }
+
         * {
             font-family: 'Inter', sans-serif;
         }
         
-        .gradient-text {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* New Hero Background */
+        .hero-bg {
+            background-color: var(--color-bg-dark);
+            position: relative;
+            overflow: hidden;
         }
         
-        .testimonial-card {
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        .aurora-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(var(--color-primary-light), 0.1) 0%, 
+                rgba(var(--color-primary-dark), 0.2) 50%, 
+                rgba(var(--color-primary-light), 0.1) 100%);
+            animation: aurora-flow 8s ease-in-out infinite;
+            z-index: 1;
         }
         
-        .testimonial-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        .star-rating {
-            color: #fbbf24;
+        @keyframes aurora-flow {
+            0%, 100% { transform: translateX(-10%) rotate(0deg); }
+            50% { transform: translateX(10%) rotate(2deg); }
         }
         
         .fade-in {
@@ -64,58 +86,86 @@
             transform: translateY(0);
         }
         
-        .splide__arrow {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            border: none;
-            width: 3rem;
-            height: 3rem;
-        }
-        
-        .splide__arrow:hover {
-            transform: scale(1.1);
-        }
-        
-        .splide__pagination__page.is-active {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-        }
-        
-        .stats-grid {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
-        }
-        
-        .impact-metric {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        /* Updated Feature Card */
+        .feature-card {
             transition: all 0.3s ease;
+            background-color: white;
+            border: 1px solid #e2e8f0; /* slate-200 */
         }
         
-        .impact-metric:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(var(--color-primary-dark), 0.1);
+            border-color: rgba(var(--color-primary-light), 0.5);
         }
         
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Updated Glow Button */
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: rgb(var(--color-primary-light));
+            color: white;
+        }
+
+        .glow-button:hover {
+            background-color: rgb(var(--color-primary));
+        }
+
+        /* WCAG: Visible focus states for all interactive elements */
+        .focusable {
+            transition: outline-offset 0.1s ease, box-shadow 0.2s ease;
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+        }
+        .focusable:focus-visible {
+            outline-offset: 0px;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-light), 0.7);
+        }
+        .focusable-inset:focus-visible {
+             box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
+        }
+
+        /* Updated Stats Counter */
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgb(var(--color-primary-light));
         }
         
-        .quote-mark {
-            font-size: 4rem;
-            color: #ff6b6b;
-            opacity: 0.3;
-            line-height: 1;
+        .waveform-container {
+            background: rgba(var(--color-bg-light), 0.8);
+            border-radius: 12px;
+            padding: 1rem;
         }
         
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .gradient-text {
+            color: rgb(var(--color-primary-light));
+        }
+        
+        /* Updated Nav Link */
         .nav-link {
             position: relative;
             transition: color 0.3s ease;
+            color: var(--color-text-medium);
+        }
+        .nav-link:hover {
+            color: var(--color-text-dark);
         }
         
         .nav-link::after {
@@ -125,69 +175,104 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            background-color: rgb(var(--color-primary-light));
             transition: width 0.3s ease;
         }
         
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
         }
 
-        .glow-button {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        /* Active link style for current page */
+        .nav-link.active {
+            color: rgb(var(--color-primary-light));
         }
         
-        .glow-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+        /* Download Toast Styles */
+        .download-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #fff;
+            color: var(--color-text-dark);
+            padding: 1rem 1.5rem;
+            border-radius: .75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 9999;
+            animation: slideInRight .35s ease-out;
         }
-        
-        .glow-button:hover::before {
-            left: 100%;
+
+        .download-toast.hide {
+            animation: slideOutRight .35s ease-in forwards;
+        }
+
+        .spinner {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 3px solid #e2e8f0;
+            border-top-color: rgb(var(--color-primary-light));
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(110%); opacity: 0; }
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+<body class="bg-slate-50 text-slate-800">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-volume-up text-white text-sm"></i>
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2 focusable rounded-lg" aria-label="Say It Homepage">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
                     </div>
-                    <span class="text-xl font-bold text-gray-800">Say It</span>
-                </div>
+                    <span class="text-xl font-bold text-slate-900">Say It</span>
+                </a>
                 
+                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a>
-                    <a href="features.html" class="text-gray-600 hover:text-gray-800">Features</a>
-                    <a href="#testimonials" class="text-red-400 font-medium">Testimonials</a>
-                    <a href="about.html" class="text-gray-600 hover:text-gray-800">About</a>
-                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <a href="#features" class="nav-link focusable rounded-md">Features</a>
+                    <a href="features.html" class="nav-link focusable rounded-md">Details</a>
+                    <a href="testimonials.html" class="nav-link focusable rounded-md">Testimonials</a>
+                    <a href="about.html" class="nav-link focusable rounded-md">About</a>
+                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
                 
-                <button id="mobile-menu-toggle" class="md:hidden p-2">
-                    <i class="fas fa-bars text-gray-600"></i>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-toggle" class="md:hidden p-2 focusable rounded-md" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <i class="fas fa-bars text-slate-600" aria-hidden="true"></i>
                 </button>
             </div>
             
+            <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <a href="index.html" class="text-gray-600 hover:text-gray-800 py-2">Home</a>
-                    <a href="features.html" class="text-gray-600 hover:text-gray-800 py-2">Features</a>
-                    <a href="#testimonials" class="text-red-400 font-medium py-2">Testimonials</a>
-                    <a href="about.html" class="text-gray-600 hover:text-gray-800 py-2">About</a>
-                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
+                    <a href="#features" class="nav-link focusable rounded-md py-2">Features</a>
+                    <a href="features.html" class="nav-link focusable rounded-md py-2">Details</a>
+                    <a href="testimonials.html" class="nav-link focusable rounded-md py-2">Testimonials</a>
+                    <a href="about.html" class="nav-link focusable rounded-md py-2">About</a>
+                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -195,653 +280,349 @@
         </div>
     </nav>
 
-    <section class="pt-24 pb-12 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-5xl font-bold mb-6">
-                    Real Stories, Real <span class="gradient-text">Impact</span>
-                </h1>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Discover how Say It is transforming lives across the globe. Read authentic testimonials 
-                    from our community of 40,000+ users in 18 countries.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    Global <span class="gradient-text">Impact</span> by the Numbers
-                </h2>
-                <p class="text-xl text-gray-600">
-                    Our community's success stories speak volumes about the difference Say It makes.
-                </p>
-            </div>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
+            <div id="particles-canvas" aria-hidden="true"></div>
+            <div class="aurora-effect" aria-hidden="true"></div>
             
-            <div class="stats-grid rounded-2xl p-8 fade-in">
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="impact-metric">
-                        <div class="text-4xl font-bold text-red-400 mb-2">40,000+</div>
-                        <p class="text-gray-600 font-medium">Active Users</p>
-                        <p class="text-sm text-gray-500 mt-1">Across 18 countries</p>
-                    </div>
-                    
-                    <div class="impact-metric">
-                        <div class="text-4xl font-bold text-teal-400 mb-2">280K+</div>
-                        <p class="text-gray-600 font-medium">Documents Read</p>
-                        <p class="text-sm text-gray-500 mt-1">Since launch</p>
-                    </div>
-                    
-                    <div class="impact-metric">
-                        <div class="text-4xl font-bold text-blue-400 mb-2">77%</div>
-                        <p class="text-gray-600 font-medium">User Satisfaction</p>
-                        <p class="text-sm text-gray-500 mt-1">Continuously improving</p>
-                    </div>
-                    
-                    <div class="impact-metric">
-                        <div class="text-4xl font-bold text-green-400 mb-2">24/7</div>
-                        <p class="text-gray-600 font-medium">Accessibility</p>
-                        <p class="text-sm text-gray-500 mt-1">Always available</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    What Our Users <span class="gradient-text">Say</span>
-                </h2>
-                <p class="text-xl text-gray-600">
-                    Authentic testimonials from real users who've experienced life-changing benefits.
-                </p>
-            </div>
-            
-            <div class="testimonial-carousel splide fade-in">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <li class="splide__slide">
-                            <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-                                <div class="quote-mark">"</div>
-                                <div class="flex flex-col md:flex-row items-center gap-8">
-                                    <div class="flex-shrink-0">
-                                        <div class="user-avatar bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-                                            SM
-                                        </div>
-                                        <div class="text-center mt-4">
-                                            <div class="star-rating text-2xl mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <h3 class="font-bold text-gray-800">Sarah M.</h3>
-                                            <p class="text-gray-600 text-sm">Visually Impaired User</p>
-                                            <p class="text-gray-500 text-xs mt-1">United States • 2 years using Say It</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <blockquote class="text-lg text-gray-700 leading-relaxed mb-4">
-                                            "Say It has transformed how I interact with the world. I can now read restaurant menus, 
-                                            medicine bottles, and even street signs independently. It's truly life-changing. The 
-                                            accuracy is incredible, and I love that it works completely offline."
-                                        </blockquote>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Independence</span>
-                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Offline Use</span>
-                                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">High Accuracy</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 hero-content">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- Left Content -->
+                    <div class="text-white">
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100">
+                            <span class="hero-title gradient-text"></span>
+                        </h1>
+                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed">
+                            An accessibility app that helps the visually impaired read printed text through speech. 
+                            Join <strong class="text-yellow-300">40,000 users</strong> across <strong class="text-yellow-300">18 countries</strong>!
+                        </p>
                         
-                        <li class="splide__slide">
-                            <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-                                <div class="quote-mark">"</div>
-                                <div class="flex flex-col md:flex-row items-center gap-8">
-                                    <div class="flex-shrink-0">
-                                        <div class="user-avatar bg-gradient-to-r from-green-400 to-teal-500 flex items-center justify-center text-white text-2xl font-bold">
-                                            AK
-                                        </div>
-                                        <div class="text-center mt-4">
-                                            <div class="star-rating text-2xl mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <h3 class="font-bold text-gray-800">Ahmed K.</h3>
-                                            <p class="text-gray-600 text-sm">Elderly User</p>
-                                            <p class="text-gray-500 text-xs mt-1">Egypt • 1 year using Say It</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <blockquote class="text-lg text-gray-700 leading-relaxed mb-4">
-                                            "As someone who struggles with reading small print, this app is a blessing. 
-                                            The offline feature means I can use it anywhere, even in areas with poor internet connection. 
-                                            The voice is clear and easy to understand."
-                                        </blockquote>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Easy to Use</span>
-                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Clear Voice</span>
-                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Reliable</span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <!-- Stats -->
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <div class="text-center">
+                                <p class="text-slate-200 text-lg">
+                                    <span class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</span>
+                                    Active Users
+                                </p>
                             </div>
-                        </li>
-                        
-                        <li class="splide__slide">
-                            <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-                                <div class="quote-mark">"</div>
-                                <div class="flex flex-col md:flex-row items-center gap-8">
-                                    <div class="flex-shrink-0">
-                                        <div class="user-avatar bg-gradient-to-r from-purple-400 to-indigo-500 flex items-center justify-center text-white text-2xl font-bold">
-                                            MT
-                                        </div>
-                                        <div class="text-center mt-4">
-                                            <div class="star-rating text-2xl mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <h3 class="font-bold text-gray-800">Michael T.</h3>
-                                            <p class="text-gray-600 text-sm">Privacy-Conscious User</p>
-                                            <p class="text-gray-500 text-xs mt-1">Germany • 6 months using Say It</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <blockquote class="text-lg text-gray-700 leading-relaxed mb-4">
-                                            "I love that my data stays on my device. Finally, an accessibility app that respects privacy 
-                                            while being incredibly useful. The voice customization is fantastic too! Being able to adjust 
-                                            the speed and pitch makes it perfect for my needs."
-                                        </blockquote>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Privacy First</span>
-                                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Customizable</span>
-                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Trustworthy</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="splide__slide">
-                            <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-                                <div class="quote-mark">"</div>
-                                <div class="flex flex-col md:flex-row items-center gap-8">
-                                    <div class="flex-shrink-0">
-                                        <div class="user-avatar bg-gradient-to-r from-pink-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-                                            MS
-                                        </div>
-                                        <div class="text-center mt-4">
-                                            <div class="star-rating text-2xl mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <h3 class="font-bold text-gray-800">Maria S.</h3>
-                                            <p class="text-gray-600 text-sm">Student</p>
-                                            <p class="text-gray-500 text-xs mt-1">Brazil • 8 months using Say It</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <blockquote class="text-lg text-gray-700 leading-relaxed mb-4">
-                                            "Perfect for studying! I convert all my textbook chapters to audio and listen while commuting. 
-                                            The multi-language support helps with my Spanish studies too. It's like having a personal 
-                                            assistant that reads everything to me."
-                                        </blockquote>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Study Aid</span>
-                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Multilingual</span>
-                                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Time Saver</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="splide__slide">
-                            <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-                                <div class="quote-mark">"</div>
-                                <div class="flex flex-col md:flex-row items-center gap-8">
-                                    <div class="flex-shrink-0">
-                                        <div class="user-avatar bg-gradient-to-r from-blue-400 to-teal-500 flex items-center justify-center text-white text-2xl font-bold">
-                                            DL
-                                        </div>
-                                        <div class="text-center mt-4">
-                                            <div class="star-rating text-2xl mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <h3 class="font-bold text-gray-800">David L.</h3>
-                                            <p class="text-gray-600 text-sm">Frequent Traveler</p>
-                                            <p class="text-gray-500 text-xs mt-1">United Kingdom • 1.5 years using Say It</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <blockquote class="text-lg text-gray-700 leading-relaxed mb-4">
-                                            "Essential for my business trips! I use it to read menus, signs, and documents in different 
-                                            countries. The offline functionality is a lifesaver when I don't have internet access abroad. 
-                                            Highly recommended for any traveler."
-                                        </blockquote>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Travel Essential</span>
-                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Offline Ready</span>
-                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Global Use</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="splide__slide">
-                            <div class="testimonial-card bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-                                <div class="quote-mark">"</div>
-                                <div class="flex flex-col md:flex-row items-center gap-8">
-                                    <div class="flex-shrink-0">
-                                        <div class="user-avatar bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold">
-                                            ER
-                                        </div>
-                                        <div class="text-center mt-4">
-                                            <div class="star-rating text-2xl mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <h3 class="font-bold text-gray-800">Elena R.</h3>
-                                            <p class="text-gray-600 text-sm">Multilingual User</p>
-                                            <p class="text-gray-500 text-xs mt-1">Spain • 4 months using Say It</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <blockquote class="text-lg text-gray-700 leading-relaxed mb-4">
-                                            "The language support is incredible! I use it to practice my English and German pronunciation. 
-                                            The voices sound so natural, and being able to adjust the speed helps me learn at my own pace. 
-                                            It's perfect for language learners."
-                                        </blockquote>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Language Learning</span>
-                                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Natural Voices</span>
-                                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Adjustable Speed</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    User <span class="gradient-text">Satisfaction</span> Metrics
-                </h2>
-                <p class="text-xl text-gray-600">
-                    See what users value most about Say It and how we deliver on our promises.
-                </p>
-            </div>
-            
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="fade-in">
-                    <div id="satisfaction-chart" style="width: 100%; height: 400px;"></div>
-                </div>
-                
-                <div class="space-y-6 fade-in">
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-4">
-                            <i class="fas fa-heart text-red-500 mr-2"></i>
-                            What Users Love Most
-                        </h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-700">Ease of Use</span>
-                                <div class="flex items-center">
-                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                                        <div class="bg-gradient-to-r from-red-400 to-teal-400 h-2 rounded-full" style="width: 95%"></div>
-                                    </div>
-                                    <span class="text-sm font-semibold text-gray-600">95%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-700">Privacy Protection</span>
-                                <div class="flex items-center">
-                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                                        <div class="bg-gradient-to-r from-red-400 to-teal-400 h-2 rounded-full" style="width: 92%"></div>
-                                    </div>
-                                    <span class="text-sm font-semibold text-gray-600">92%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-700">Offline Functionality</span>
-                                <div class="flex items-center">
-                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                                        <div class="bg-gradient-to-r from-red-400 to-teal-400 h-2 rounded-full" style="width: 89%"></div>
-                                    </div>
-                                    <span class="text-sm font-semibold text-gray-600">89%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-700">Voice Quality</span>
-                                <div class="flex items-center">
-                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                                        <div class="bg-gradient-to-r from-red-400 to-teal-400 h-2 rounded-full" style="width: 87%"></div>
-                                    </div>
-                                    <span class="text-sm font-semibold text-gray-600">87%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-700">Accuracy</span>
-                                <div class="flex items-center">
-                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                                        <div class="bg-gradient-to-r from-red-400 to-teal-400 h-2 rounded-full" style="width: 91%"></div>
-                                    </div>
-                                    <span class="text-sm font-semibold text-gray-600">91%</span>
-                                </div>
+                            <div class="text-center">
+                                <p class="text-slate-200 text-lg">
+                                    <span class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</span>
+                                    Countries
+                                </p>
                             </div>
                         </div>
+                        
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="download-btn glow-button focusable text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                                <i class="fas fa-download mr-2" aria-hidden="true"></i>
+                                Download Now
+                            </button>
+                        </div>
+                        
+                        <p class="text-sm text-slate-300 mt-4">
+                            <i class="fas fa-android mr-1" aria-hidden="true"></i>
+                            Currently available for Android only
+                        </p>
                     </div>
                     
-                    <div class="bg-gradient-to-r from-green-400 to-teal-500 rounded-xl p-6 text-white">
-                        <h3 class="text-xl font-bold mb-2">
-                            <i class="fas fa-chart-line mr-2"></i>
-                            Overall Rating
-                        </h3>
-                        <div class="flex items-center justify-between">
+                    <!-- Right Content - App Preview -->
+                    <div class="relative">
+                        <div class="relative z-10">
+                            <img src="promo.png" alt="Say It App Interface showing options to take picture and select image." class="w-full max-w-md mx-auto rounded-2xl shadow-2xl">
+                        </div>
+                        
+                        <!-- Floating Elements -->
+                        <div aria-hidden="true" class="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white animate-bounce z-20">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <div aria-hidden="true" class="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white animate-pulse z-20">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Distribution Map -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                        Global <span class="gradient-text">Impact</span>
+                    </h2>
+                    <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                        See how Say It is transforming lives across the globe. Our users span 18 countries, 
+                        creating a worldwide community of accessibility and inclusion.
+                    </p>
+                </div>
+                
+                <div class="bg-slate-50 rounded-2xl p-4 sm:p-8 shadow-lg fade-in border border-slate-200">
+                    <!-- Updated map div with responsive height -->
+                    <div id="world-map" class="w-full h-[400px] sm:h-[500px]" role="img" aria-label="Global user distribution map"></div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+                        <div class="text-center">
+                            <!-- Updated user counter -->
+                            <div class="text-3xl font-bold text-blue-600 counter" data-target="40000" role="timer" aria-live="polite">0</div>
+                            <p class="text-slate-600">Total Users</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600 counter" data-target="18" role="timer" aria-live="polite">0</div>
+                            <p class="text-slate-600">Countries</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">10</div>
+                            <p class="text-slate-600">Languages</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">100</div>
+                            <p class="text-slate-600">% Offline</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section id="features" class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                        Why Choose <span class="gradient-text">Say It</span>?
+                    </h2>
+                    <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                        Experience the most advanced, privacy-focused, and user-friendly text-to-speech app 
+                        designed specifically for accessibility and independence.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature 1: Instant Text-to-Speech -->
+                    <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-bolt text-xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-3">⚡ Instant Text-to-Speech</h3>
+                        <p class="text-slate-600">
+                            Just take a photo, and Say It reads the text for you instantly with high accuracy using advanced AI-powered OCR technology.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2: Privacy & Security -->
+                    <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-shield-alt text-xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-3">🔒 100% Private & Secure</h3>
+                        <p class="text-slate-600">
+                            Zero data collection. Everything happens on your device. Your privacy is guaranteed with offline processing.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3: Simple & Accessible -->
+                    <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-universal-access text-xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-3">♿ Simple & Accessible</h3>
+                        <p class="text-slate-600">
+                            Designed specifically for the visually impaired with an intuitive interface and accessible design.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 4: Works Offline -->
+                    <div class="feature-card rounded-xl p-6 shadow-lg slide-up">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-wifi-slash text-xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-3">📴 Works Completely Offline</h3>
+                        <p class="text-slate-600">
+                            No internet required. Read medication labels, menus, street signs, books, and more—anywhere, anytime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Voice Customization Demo -->
+        <section class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                        Try <span class="gradient-text">Voice Customization</span>
+                    </h2>
+                    <p class="text-xl text-slate-600">
+                        Experience the power of customizable text-to-speech with real-time adjustments.
+                    </p>
+                </div>
+                
+                <div class="bg-slate-50 rounded-2xl p-8 shadow-lg fade-in border border-slate-200">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Controls -->
+                        <div class="space-y-6">
                             <div>
-                                <div class="text-4xl font-bold">77%</div>
-                                <p class="text-white/90">Based on 1,300+ reviews</p>
+                                <label for="speed-slider" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Speed: <span id="speed-value" class="text-blue-600">1.0x</span>
+                                </label>
+                                <input type="range" id="speed-slider" min="0.5" max="2.0" step="0.1" value="1.0" 
+                                    class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focusable-inset">
                             </div>
-                            <div class="text-right">
-                                <div class="text-2xl mb-2">
-                                    <i class="fas fa-arrow-up"></i>
-                                </div>
-                                <p class="text-white/90">Continuously improving</p>
+                            
+                            <div>
+                                <label for="pitch-slider" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Pitch: <span id="pitch-value" class="text-blue-600">1.0</span>
+                                </label>
+                                <input type="range" id="pitch-slider" min="0.5" max="2.0" step="0.1" value="1.0" 
+                                    class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focusable-inset">
                             </div>
+                            
+                            <button id="play-demo" class="w-full glow-button focusable text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                                <i class="fas fa-play mr-2" aria-hidden="true"></i>
+                                Play Demo
+                            </button>
+                        </div>
+                        
+                        <!-- Waveform Visualization -->
+                        <div class="waveform-container">
+                            <div id="waveform-canvas" class="w-full h-24" aria-hidden="true"></div>
+                            <p class="text-sm text-slate-500 text-center mt-2">
+                                Real-time voice visualization
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    Life-Changing <span class="gradient-text">Success Stories</span>
+        <!-- Language Support -->
+        <section class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                        <span class="gradient-text">10 Languages</span> Supported
+                    </h2>
+                    <p class="text-xl text-slate-600">
+                        Convert text into natural-sounding speech in multiple languages. More coming soon!
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 fade-in">
+                    <!-- Language Options (changed to buttons for accessibility) -->
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇺🇸</div>
+                        <h3 class="font-semibold text-slate-800">English (US)</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇬🇧</div>
+                        <h3 class="font-semibold text-slate-800">English (UK)</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇪🇸</div>
+                        <h3 class="font-semibold text-slate-800">Spanish</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇫🇷</div>
+                        <h3 class="font-semibold text-slate-800">French</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇩🇪</div>
+                        <h3 class="font-semibold text-slate-800">German</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇮🇹</div>
+                        <h3 class="font-semibold text-slate-800">Italian</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇵🇹</div>
+                        <h3 class="font-semibold text-slate-800">Portuguese</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇯🇵</div>
+                        <h3 class="font-semibold text-slate-800">Japanese</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇮🇳</div>
+                        <h3 class="font-semibold text-slate-800">Hindi</h3>
+                    </button>
+                    
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                        <div class="text-2xl mb-2" aria-hidden="true">🇦🇪</div>
+                        <h3 class="font-semibold text-slate-800">Arabic</h3>
+                    </button>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <div class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full">
+                        <i class="fas fa-plus mr-2" aria-hidden="true"></i>
+                        More languages coming soon!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 bg-blue-700">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-white mb-6">
+                    Ready to Transform Your World?
                 </h2>
-                <p class="text-xl text-gray-600">
-                    Real examples of how Say It has made a meaningful difference in people's lives.
+                <p class="text-xl text-blue-100 mb-8">
+                    Join thousands of users who have already discovered the power of accessible text-to-speech technology.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="download-btn glow-button bg-white text-blue-700 focusable px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                        <i class="fas fa-download mr-2" aria-hidden="true"></i>
+                        Download Say It Now
+                    </button>
+                    <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all focusable">
+                        <i class="fas fa-info-circle mr-2" aria-hidden="true"></i>
+                        Learn More Features
+                    </a>
+                </div>
+                
+                <p class="text-sm text-blue-200 mt-4">
+                    <i class="fab fa-android mr-1" aria-hidden="true"></i>
+                    Available for Android devices • Free download
                 </p>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-800">Educational Achievement</h3>
-                            <p class="text-gray-600 text-sm">Maria, University Student</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "Before Say It, I struggled to keep up with reading assignments due to my visual impairment. 
-                        Now I convert all my textbooks to audio and listen while commuting. My grades improved by 25% 
-                        and I feel more confident in my studies."
-                    </p>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <span>25% Grade Improvement</span>
-                        <span>3 Hours Daily Usage</span>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-800">Professional Independence</h3>
-                            <p class="text-gray-600 text-sm">David, Business Consultant</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "Traveling for work was challenging when I couldn't read menus or documents in different countries. 
-                        Say It gives me the independence to navigate any situation confidently. I've visited 12 countries 
-                        this year without accessibility concerns."
-                    </p>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <span>12 Countries Visited</span>
-                        <span>Daily Business Use</span>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-pink-400 to-red-500 rounded-full flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-800">Daily Life Independence</h3>
-                            <p class="text-gray-600 text-sm">Sarah, Retired Teacher</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "Reading medication labels was my biggest worry. With Say It, I can independently manage my medications, 
-                        read cooking instructions, and handle daily tasks that require reading. It's given me back my confidence 
-                        and independence at home."
-                    </p>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <span>100% Medication Accuracy</span>
-                        <span>Independent Living</span>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-language"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-800">Language Learning</h3>
-                            <p class="text-gray-600 text-sm">Elena, Language Student</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "Say It has revolutionized my language learning. I can practice pronunciation with different languages 
-                        and adjust the speed to match my learning pace. My German pronunciation improved dramatically in just 
-                        3 months of regular use."
-                    </p>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <span>3 Languages Practiced</span>
-                        <span>40% Pronunciation Improvement</span>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-800">Privacy Peace of Mind</h3>
-                            <p class="text-gray-600 text-sm">Michael, IT Professional</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "As someone who works in IT, privacy is crucial to me. Say It's offline processing means I can use it 
-                        for sensitive documents without worrying about data breaches. It's the perfect balance of functionality 
-                        and privacy protection."
-                    </p>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <span>100% Privacy Compliance</span>
-                        <span>Sensitive Document Use</span>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg slide-up">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full flex items-center justify-center text-white mr-4">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-gray-800">Family Connection</h3>
-                            <p class="text-gray-600 text-sm">Ahmed, Grandfather</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "I can now read letters from my grandchildren and help my wife with shopping lists. Say It has strengthened 
-                        my family relationships by allowing me to participate fully in family activities that involve reading. 
-                        It's more than an app - it's independence."
-                    </p>
-                    <div class="flex justify-between text-sm text-gray-500">
-                        <span>Family Activity Participation</span>
-                        <span>Improved Relationships</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <section class="py-20 bg-gradient-to-r from-red-400 to-teal-400">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-white mb-6">
-                Join Our Community of Success Stories
-            </h2>
-            <p class="text-xl text-white/90 mb-8">
-                Start your own success story today. Download Say It and experience the difference for yourself.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="download-btn glow-button bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
-                    <i class="fas fa-download mr-2"></i>
-                    Download Say It Free
-                </button>
-                <a href="about.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    Learn About Our Mission
-                </a>
-            </div>
-            
-            <p class="text-sm text-white/80 mt-4">
-                Join 40,000+ users who've already transformed their lives
-            </p>
-        </div>
-    </section>
-
-    <footer class="bg-gray-800 text-white py-12">
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="flex items-center justify-center space-x-2 mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-volume-up text-white text-sm"></i>
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
                     </div>
-                    <span class="text-xl font-bold">Say It</span>
+                    <span class="text-xl font-bold text-slate-100">Say It</span>
                 </div>
-                <p class="text-gray-400 mb-4">
+                <p class="text-slate-400 mb-4">
                     Empowering accessibility through technology
                 </p>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-slate-500">
                     © 2025 Say It - All rights reserved • Built with accessibility in mind
                 </p>
             </div>
         </div>
     </footer>
 
+
+    <!-- Main JavaScript -->
     <script src="main.js"></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize satisfaction chart
-            if (typeof echarts !== 'undefined' && document.getElementById('satisfaction-chart')) {
-                const satisfactionChart = echarts.init(document.getElementById('satisfaction-chart'));
-                
-                const option = {
-                    backgroundColor: 'transparent',
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'shadow'
-                        }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: ['Ease of Use', 'Privacy', 'Offline Use', 'Voice Quality', 'Accuracy', 'Support'],
-                        axisLabel: {
-                            color: '#6b7280',
-                            fontSize: 12
-                        }
-                    },
-                    yAxis: {
-                        type: 'value',
-                        max: 100,
-                        axisLabel: {
-                            color: '#6b7280',
-                            formatter: '{value}%'
-                        }
-                    },
-                    series: [{
-                        name: 'Satisfaction Rate',
-                        type: 'bar',
-                        data: [95, 92, 89, 87, 91, 88],
-                        itemStyle: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                                { offset: 0, color: '#ff6b6b' },
-                                { offset: 1, color: '#4ecdc4' }
-                            ])
-                        },
-                        barWidth: '60%',
-                        label: {
-                            show: true,
-                            position: 'top',
-                            formatter: '{c}%',
-                            color: '#374151',
-                            fontWeight: 'bold'
-                        }
-                    }]
-                };
-                
-                satisfactionChart.setOption(option);
-                
-                // Resize chart on window resize
-                window.addEventListener('resize', () => {
-                    satisfactionChart.resize();
-                });
-            }
-        });
-    </script>
 </body>
 </html>
