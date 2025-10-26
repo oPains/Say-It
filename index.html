@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Say It - See Through Sound | Accessibility Text-to-Speech App</title>
-    <meta name="description" content="Say It is an accessibility app that helps the visually impaired read printed text through speech. Join 40K+ users across 18 countries.">
+    <meta name="description" content="Say It is an accessibility app that helps the visually impaired read printed text through speech. Join 40,000 users across 18 countries.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -43,6 +43,7 @@
                 rgba(78, 205, 196, 0.1) 50%, 
                 rgba(255, 107, 107, 0.1) 100%);
             animation: aurora-flow 8s ease-in-out infinite;
+            z-index: 1;
         }
         
         @keyframes aurora-flow {
@@ -85,6 +86,7 @@
         .glow-button {
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
         
         .glow-button::before {
@@ -123,6 +125,8 @@
             left: 0;
             pointer-events: none;
             z-index: 1;
+            width: 100%;
+            height: 100%;
         }
         
         .hero-content {
@@ -153,8 +157,14 @@
             transition: width 0.3s ease;
         }
         
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
+        }
+
+        /* Active link style for current page */
+        .nav-link.active {
+            color: #ff6b6b; /* Or use gradient-text if you prefer */
         }
         
         .notification {
@@ -217,12 +227,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
-                <div class="flex items-center space-x-2">
+                <a href="index.html" class="flex items-center space-x-2">
                     <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm"></i>
                     </div>
                     <span class="text-xl font-bold text-gray-800">Say It</span>
-                </div>
+                </a>
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
@@ -230,7 +240,7 @@
                     <a href="features.html" class="nav-link text-gray-600 hover:text-gray-800">Details</a>
                     <a href="testimonials.html" class="nav-link text-gray-600 hover:text-gray-800">Testimonials</a>
                     <a href="about.html" class="nav-link text-gray-600 hover:text-gray-800">About</a>
-                    <button class="glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
@@ -248,7 +258,7 @@
                     <a href="features.html" class="text-gray-600 hover:text-gray-800 py-2">Details</a>
                     <a href="testimonials.html" class="text-gray-600 hover:text-gray-800 py-2">Testimonials</a>
                     <a href="about.html" class="text-gray-600 hover:text-gray-800 py-2">About</a>
-                    <button class="glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
+                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -257,7 +267,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-bg min-h-screen flex items-center relative">
+    <section class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
         <div id="particles-canvas"></div>
         <div class="aurora-effect"></div>
         
@@ -270,7 +280,7 @@
                     </h1>
                     <p class="text-xl lg:text-2xl mb-8 text-gray-200 leading-relaxed">
                         An accessibility app that helps the visually impaired read printed text through speech. 
-                        Join <strong class="text-yellow-300">40K+ users</strong> across <strong class="text-yellow-300">18 countries</strong>!
+                        Join <strong class="text-yellow-300">40,000 users</strong> across <strong class="text-yellow-300">18 countries</strong>!
                     </p>
                     
                     <!-- Stats -->
@@ -306,10 +316,10 @@
                     </div>
                     
                     <!-- Floating Elements -->
-                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white animate-bounce">
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white animate-bounce z-20">
                         <i class="fas fa-magic"></i>
                     </div>
-                    <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white animate-pulse">
+                    <div class="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white animate-pulse z-20">
                         <i class="fas fa-check"></i>
                     </div>
                 </div>
@@ -330,12 +340,14 @@
                 </p>
             </div>
             
-            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg fade-in">
-                <div id="world-map" style="width: 100%; height: 500px;"></div>
+            <div class="bg-gray-50 rounded-2xl p-4 sm:p-8 shadow-lg fade-in">
+                <!-- Updated map div with responsive height -->
+                <div id="world-map" class="w-full h-[400px] sm:h-[500px]"></div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-red-400 counter" data-target="40252">0</div>
+                        <!-- Updated user counter -->
+                        <div class="text-3xl font-bold text-red-400 counter" data-target="40000">0</div>
                         <p class="text-gray-600">Total Users</p>
                     </div>
                     <div class="text-center">
@@ -437,7 +449,7 @@
                                 Speed: <span id="speed-value" class="text-red-400">1.0x</span>
                             </label>
                             <input type="range" id="speed-slider" min="0.5" max="2.0" step="0.1" value="1.0" 
-                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-400">
                         </div>
                         
                         <div>
@@ -445,7 +457,7 @@
                                 Pitch: <span id="pitch-value" class="text-teal-400">1.0</span>
                             </label>
                             <input type="range" id="pitch-slider" min="0.5" max="2.0" step="0.1" value="1.0" 
-                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-teal-400">
                         </div>
                         
                         <button id="play-demo" class="w-full glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
@@ -478,7 +490,7 @@
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4 fade-in">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 fade-in">
                 <!-- Language Options -->
                 <div class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all cursor-pointer">
                     <div class="text-2xl mb-2">🇺🇸</div>
@@ -551,7 +563,7 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="download-btn bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                <button class="download-btn glow-button bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                     <i class="fas fa-download mr-2"></i>
                     Download Say It Now
                 </button>
@@ -593,4 +605,3 @@
     <script src="main.js"></script>
 </body>
 </html>
- 
