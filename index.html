@@ -128,8 +128,6 @@
             font-size: 3rem;
             font-weight: 800;
             color: rgb(var(--color-primary-light));
-            /* --- FIX: Added text shadow for contrast --- */
-            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
         
         .waveform-container {
@@ -155,13 +153,11 @@
         
         .gradient-text {
             color: rgb(var(--color-primary-light));
-            /* --- FIX: Added text shadow for contrast --- */
-            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
         
-        /* --- FIX: Added text shadow for hero contrast --- */
-        .hero-text-shadow {
-            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        /* --- FIX: Replaced blurry shadow with a SHARPER shadow for contrast --- */
+        .hero-text-sharp-shadow {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
         
         /* Updated Nav Link */
@@ -289,22 +285,22 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 hero-content">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="text-white">
-                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100 hero-text-shadow">
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100 hero-text-sharp-shadow">
                             <span class="hero-title gradient-text"></span>
                         </h1>
-                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed hero-text-shadow">
+                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed hero-text-sharp-shadow">
                             An accessibility app that helps the visually impaired read printed text through speech. 
                             Join <strong class="text-yellow-300">40,000 users</strong> across <strong class="text-yellow-300">18 countries</strong>!
                         </p>
                         
                         <div class="grid grid-cols-2 gap-6 mb-8">
                             <div class="text-center">
-                                <div class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</div>
-                                <p class="text-slate-200 text-lg hero-text-shadow">Active Users</p>
+                                <div class="stats-counter counter hero-text-sharp-shadow" data-target="40000" role="timer" aria-live="polite">0</div>
+                                <p class="text-slate-200 text-lg hero-text-sharp-shadow">Active Users</p>
                             </div>
                             <div class="text-center">
-                                <div class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</div>
-                                <p class="text-slate-200 text-lg hero-text-shadow">Countries</p>
+                                <div class="stats-counter counter hero-text-sharp-shadow" data-target="18" role="timer" aria-live="polite">0</div>
+                                <p class="text-slate-200 text-lg hero-text-sharp-shadow">Countries</p>
                             </div>
                         </div>
                         
@@ -315,7 +311,7 @@
                             </button>
                         </div>
                         
-                        <p class="text-sm text-slate-300 mt-4 hero-text-shadow">
+                        <p class="text-sm text-slate-300 mt-4 hero-text-sharp-shadow">
                             <i class="fas fa-android mr-1" aria-hidden="true"></i>
                             Currently available for Android only
                         </p>
@@ -550,7 +546,7 @@
                 </h2>
                 <p class="text-xl text-blue-100 mb-8">
                     Join thousands of users who have already discovered the power of accessible text-to-speech technology.
-                </p>
+                </loc>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button class="download-btn glow-button bg-white text-blue-700 focusable px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
