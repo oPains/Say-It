@@ -12,7 +12,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -136,15 +135,7 @@
             padding: 1rem;
         }
         
-        #particles-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-        }
+        /* --- REMOVED Particle Canvas Style --- */
         
         .hero-content {
             position: relative;
@@ -155,10 +146,7 @@
             color: rgb(var(--color-primary-light));
         }
         
-        /* --- FIX: Replaced blurry shadow with a SHARPER shadow for contrast --- */
-        .hero-text-sharp-shadow {
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
+        /* --- REMOVED hero-text-sharp-shadow --- */
         
         /* Updated Nav Link */
         .nav-link {
@@ -279,29 +267,22 @@
 
     <main id="main-content">
         <section class="hero-bg min-h-screen flex items-center pt-16 md:pt-0">
-            <div id="particles-canvas" aria-hidden="true"></div>
             <div class="aurora-effect" aria-hidden="true"></div>
             
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 hero-content">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="text-white">
-                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100 hero-text-sharp-shadow">
-                            <span class="hero-title gradient-text"></span>
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-slate-100"> <span class="hero-title gradient-text"></span>
                         </h1>
-                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed hero-text-sharp-shadow">
-                            An accessibility app that helps the visually impaired read printed text through speech. 
+                        <p class="text-xl lg:text-2xl mb-8 text-slate-200 leading-relaxed"> An accessibility app that helps the visually impaired read printed text through speech. 
                             Join <strong class="text-yellow-300">40,000 users</strong> across <strong class="text-yellow-300">18 countries</strong>!
                         </p>
                         
                         <div class="grid grid-cols-2 gap-6 mb-8">
                             <div class="text-center">
-                                <div class="stats-counter counter hero-text-sharp-shadow" data-target="40000" role="timer" aria-live="polite">0</div>
-                                <p class="text-slate-200 text-lg hero-text-sharp-shadow">Active Users</p>
-                            </div>
+                                <div class="stats-counter counter" data-target="40000" role="timer" aria-live="polite">0</div> <p class="text-slate-200 text-lg">Active Users</p> </div>
                             <div class="text-center">
-                                <div class="stats-counter counter hero-text-sharp-shadow" data-target="18" role="timer" aria-live="polite">0</div>
-                                <p class="text-slate-200 text-lg hero-text-sharp-shadow">Countries</p>
-                            </div>
+                                <div class="stats-counter counter" data-target="18" role="timer" aria-live="polite">0</div> <p class="text-slate-200 text-lg">Countries</p> </div>
                         </div>
                         
                         <div class="flex flex-col sm:flex-row gap-4">
@@ -311,8 +292,7 @@
                             </button>
                         </div>
                         
-                        <p class="text-sm text-slate-300 mt-4 hero-text-sharp-shadow">
-                            <i class="fas fa-android mr-1" aria-hidden="true"></i>
+                        <p class="text-sm text-slate-300 mt-4"> <i class="fas fa-android mr-1" aria-hidden="true"></i>
                             Currently available for Android only
                         </p>
                     </div>
@@ -450,7 +430,7 @@
                                     class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focusable-inset">
                             </div>
                             
-                            <button id="play-demo" class="w-full glow-button focusable text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                            <button id="play-demo" class="w-.full glow-button focusable text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
                                 <i class="fas fa-play mr-2" aria-hidden="true"></i>
                                 Play Demo
                             </button>
@@ -546,7 +526,7 @@
                 </h2>
                 <p class="text-xl text-blue-100 mb-8">
                     Join thousands of users who have already discovered the power of accessible text-to-speech technology.
-                </loc>
+                </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button class="download-btn glow-button bg-white text-blue-700 focusable px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
