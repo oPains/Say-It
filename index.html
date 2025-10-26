@@ -35,15 +35,56 @@
             font-family: 'Inter', sans-serif;
         }
         
-        /* --- Assuming Hero Background IS WHITE/LIGHT based on screenshot --- */
+        /* --- [FIX 2.4.1] WCAG Bypass Block --- */
+        .skip-link {
+            position: absolute;
+            top: -100px; /* Hidden off-screen */
+            left: 1rem;
+            background: rgb(var(--color-primary-dark));
+            color: white;
+            padding: 0.75rem 1.25rem;
+            z-index: 9999;
+            transition: top 0.3s ease;
+            font-weight: 600;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .skip-link:focus {
+            top: 0; /* Becomes visible on focus */
+        }
+
+        /* --- [FIX 2.4.7] WCAG Focus Visible --- */
+        /* This global rule fixes the core complaint. 
+           It applies a strong, consistent focus state to ALL interactive elements. */
+        *:focus-visible {
+            outline: 3px solid rgb(var(--color-primary-dark));
+            outline-offset: 3px;
+            border-radius: 4px; /* Helps make the outline clearer */
+            box-shadow: 0 0 0 5px rgba(var(--color-primary-light), 0.5);
+        }
+        
+        /* Special style for inset items like sliders */
+        .focusable-inset:focus-visible {
+             outline: none; /* Use inset shadow instead */
+             box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
+        }
+        
+        /* Splide carousel focus (from testimonials) */
+        .splide__arrow:focus-visible {
+            outline-offset: 2px;
+            background: rgb(var(--color-primary));
+        }
+        .splide__pagination__page:focus-visible {
+            outline-offset: 2px;
+            background: rgb(var(--color-primary-light));
+        }
+        
+        /* --- Original Styles Below --- */
         .hero-bg {
-             /* Keeping this for context, but applying white/light bg directly */
-            background-color: white; /* Ensure it's white or very light grey */
+            background-color: white;
             position: relative;
             overflow: hidden;
         }
-        
-        /* Removed Aurora Effect as it was tied to dark bg */
         
         .fade-in {
             opacity: 0;
@@ -90,20 +131,7 @@
         .glow-button:hover {
             background-color: rgb(var(--color-primary));
         }
-
-        .focusable {
-            transition: outline-offset 0.1s ease, box-shadow 0.2s ease;
-            outline: 2px solid transparent;
-            outline-offset: 2px;
-        }
-        .focusable:focus-visible {
-            outline-offset: 0px;
-            box-shadow: 0 0 0 3px rgba(var(--color-primary-light), 0.7);
-        }
-        .focusable-inset:focus-visible {
-             box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
-        }
-
+        
         .stats-counter {
             font-size: 3rem;
             font-weight: 800;
@@ -122,7 +150,6 @@
         }
         
         .gradient-text {
-             /* This is the main title color (blue) - Keep as is */
             color: rgb(var(--color-primary-light));
         }
         
@@ -151,8 +178,10 @@
             width: 100%;
         }
 
+        /* --- [FIX 1.4.3] WCAG Contrast --- */
+        /* Changed from --color-primary-light (FAILS) to --color-primary (PASSES) */
         .nav-link.active {
-            color: rgb(var(--color-primary-light));
+            color: rgb(var(--color-primary));
         }
         
         /* Download Toast Styles */
@@ -201,10 +230,12 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="flex items-center space-x-2 focusable rounded-lg" aria-label="Say It Homepage">
+                <a href="index.html" class="flex items-center space-x-2 rounded-lg" aria-label="Say It Homepage">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
                     </div>
@@ -212,16 +243,16 @@
                 </a>
                 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="nav-link focusable rounded-md">Features</a>
-                    <a href="features.html" class="nav-link focusable rounded-md">Details</a>
-                    <a href="testimonials.html" class="nav-link focusable rounded-md">Testimonials</a>
-                    <a href="about.html" class="nav-link focusable rounded-md">About</a>
-                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <a href="#features" class="nav-link rounded-md">Features</a>
+                    <a href="features.html" class="nav-link rounded-md">Details</a>
+                    <a href="testimonials.html" class="nav-link rounded-md">Testimonials</a>
+                    <a href="about.html" class="nav-link rounded-md">About</a>
+                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
                 
-                <button id="mobile-menu-toggle" class="md:hidden p-2 focusable rounded-md" aria-controls="mobile-menu" aria-expanded="false">
+                <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-md" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <i class="fas fa-bars text-slate-600" aria-hidden="true"></i>
                 </button>
@@ -229,11 +260,11 @@
             
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <a href="#features" class="nav-link focusable rounded-md py-2">Features</a>
-                    <a href="features.html" class="nav-link focusable rounded-md py-2">Details</a>
-                    <a href="testimonials.html" class="nav-link focusable rounded-md py-2">Testimonials</a>
-                    <a href="about.html" class="nav-link focusable rounded-md py-2">About</a>
-                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium mt-2">
+                    <a href="#features" class="nav-link rounded-md py-2">Features</a>
+                    <a href="features.html" class="nav-link rounded-md py-2">Details</a>
+                    <a href="testimonials.html" class="nav-link rounded-md py-2">Testimonials</a>
+                    <a href="about.html" class="nav-link rounded-md py-2">About</a>
+                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -264,7 +295,7 @@
                         </div>
                         
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <button class="download-btn glow-button focusable text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                            <button class="download-btn glow-button text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                                 <i class="fas fa-download mr-2" aria-hidden="true"></i>
                                 Download Now
                             </button>
@@ -408,7 +439,7 @@
                                     class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 focusable-inset">
                             </div>
                             
-                            <button id="play-demo" class="w-full glow-button focusable text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                            <button id="play-demo" class="w-full glow-button text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
                                 <i class="fas fa-play mr-2" aria-hidden="true"></i>
                                 Play Demo
                             </button>
@@ -437,52 +468,52 @@
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 fade-in">
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇺🇸</div>
                         <h3 class="font-semibold text-slate-800">English (US)</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇬🇧</div>
                         <h3 class="font-semibold text-slate-800">English (UK)</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇪🇸</div>
                         <h3 class="font-semibold text-slate-800">Spanish</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇫🇷</div>
                         <h3 class="font-semibold text-slate-800">French</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇩🇪</div>
                         <h3 class="font-semibold text-slate-800">German</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇮🇹</div>
                         <h3 class="font-semibold text-slate-800">Italian</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇵🇹</div>
                         <h3 class="font-semibold text-slate-800">Portuguese</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇯🇵</div>
                         <h3 class="font-semibold text-slate-800">Japanese</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇮🇳</div>
                         <h3 class="font-semibold text-slate-800">Hindi</h3>
                     </button>
                     
-                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all focusable border border-slate-200 hover:border-blue-500">
+                    <button class="language-option-card bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all border border-slate-200 hover:border-blue-500">
                         <div class="text-2xl mb-2" aria-hidden="true">🇦🇪</div>
                         <h3 class="font-semibold text-slate-800">Arabic</h3>
                     </button>
@@ -507,11 +538,11 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="download-btn glow-button bg-white text-blue-700 focusable px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                    <button class="download-btn glow-button bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                         <i class="fas fa-download mr-2" aria-hidden="true"></i>
                         Download Say It Now
                     </button>
-                    <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all focusable">
+                    <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all">
                         <i class="fas fa-info-circle mr-2" aria-hidden="true"></i>
                         Learn More Features
                     </a>
