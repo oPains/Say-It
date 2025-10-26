@@ -6,17 +6,14 @@
     <title>Testimonials - Say It App | Real User Stories & Reviews</title>
     <meta name="description" content="Read real testimonials from Say It app users. Discover how our text-to-speech app is transforming lives across 18 countries.">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom Styles -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
@@ -90,6 +87,19 @@
         }
         
         .splide__pagination__page.is-active {
+            background: rgb(var(--color-primary-light));
+        }
+
+        /* --- FIX: Added visible focus states for Splide controls --- */
+        .splide__arrow:focus-visible {
+            outline: 3px solid rgb(var(--color-primary-dark));
+            outline-offset: 2px;
+            background: rgb(var(--color-primary));
+        }
+        
+        .splide__pagination__page:focus-visible {
+            outline: 3px solid rgb(var(--color-primary-dark));
+            outline-offset: 2px;
             background: rgb(var(--color-primary-light));
         }
         
@@ -181,11 +191,9 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
-    <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-2 focusable rounded-lg" aria-label="Say It Homepage">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
@@ -193,7 +201,6 @@
                     <span class="text-xl font-bold text-slate-900">Say It</span>
                 </a>
                 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="nav-link focusable rounded-md">Home</a>
                     <a href="features.html" class="nav-link focusable rounded-md">Features</a>
@@ -204,14 +211,12 @@
                     </button>
                 </div>
                 
-                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-toggle" class="md:hidden p-2 focusable rounded-md" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <i class="fas fa-bars text-slate-600" aria-hidden="true"></i>
                 </button>
             </div>
             
-            <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
                     <a href="index.html" class="nav-link focusable rounded-md py-2">Home</a>
@@ -226,9 +231,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content">
-        <!-- Hero Section -->
         <section class="pt-24 pb-12 bg-slate-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
@@ -243,7 +246,6 @@
             </div>
         </section>
 
-        <!-- Impact Statistics -->
         <section class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
@@ -260,32 +262,31 @@
                         <div class="impact-metric">
                             <div class="text-4xl font-bold text-blue-600 mb-2">40,000+</div>
                             <p class="text-slate-600 font-medium">Active Users</p>
-                            <p class="text-sm text-slate-500 mt-1">Across 18 countries</p>
+                            <p class="text-sm text-slate-600 mt-1">Across 18 countries</p>
                         </div>
                         
                         <div class="impact-metric">
                             <div class="text-4xl font-bold text-blue-600 mb-2">280K+</div>
                             <p class="text-slate-600 font-medium">Documents Read</p>
-                            <p class="text-sm text-slate-500 mt-1">Since launch</p>
+                            <p class="text-sm text-slate-600 mt-1">Since launch</p>
                         </div>
                         
                         <div class="impact-metric">
                             <div class="text-4xl font-bold text-blue-600 mb-2">77%</div>
                             <p class="text-slate-600 font-medium">User Satisfaction</p>
-                            <p class="text-sm text-slate-500 mt-1">Continuously improving</p>
+                            <p class="text-sm text-slate-600 mt-1">Continuously improving</p>
                         </div>
                         
                         <div class="impact-metric">
                             <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
                             <p class="text-slate-600 font-medium">Accessibility</p>
-                            <p class="text-sm text-slate-500 mt-1">Always available</p>
+                            <p class="text-sm text-slate-600 mt-1">Always available</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Testimonials Carousel -->
         <section id="testimonials" class="py-20 bg-slate-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
@@ -300,7 +301,6 @@
                 <div class="testimonial-carousel splide fade-in" aria-label="User testimonials">
                     <div class="splide__track">
                         <ul class="splide__list">
-                            <!-- Testimonial 1: Sarah M. -->
                             <li class="splide__slide" role="group" aria-roledescription="slide">
                                 <div class="testimonial-card rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                     <div class="quote-mark" aria-hidden="true">"</div>
@@ -319,7 +319,7 @@
                                                 </div>
                                                 <h3 class="font-bold text-slate-900">Sarah M.</h3>
                                                 <p class="text-slate-600 text-sm">Visually Impaired User</p>
-                                                <p class="text-slate-500 text-xs mt-1">United States • 2 years using Say It</p>
+                                                <p class="text-slate-600 text-xs mt-1">United States • 2 years using Say It</p>
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -338,7 +338,6 @@
                                 </div>
                             </li>
                             
-                            <!-- Testimonial 2: Ahmed K. -->
                             <li class="splide__slide" role="group" aria-roledescription="slide">
                                 <div class="testimonial-card rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                     <div class="quote-mark" aria-hidden="true">"</div>
@@ -357,7 +356,7 @@
                                                 </div>
                                                 <h3 class="font-bold text-slate-900">Ahmed K.</h3>
                                                 <p class="text-slate-600 text-sm">Elderly User</p>
-                                                <p class="text-slate-500 text-xs mt-1">Egypt • 1 year using Say It</p>
+                                                <p class="text-slate-600 text-xs mt-1">Egypt • 1 year using Say It</p>
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -376,7 +375,6 @@
                                 </div>
                             </li>
                             
-                            <!-- Testimonial 3: Michael T. -->
                             <li class="splide__slide" role="group" aria-roledescription="slide">
                                 <div class="testimonial-card rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                     <div class="quote-mark" aria-hidden="true">"</div>
@@ -395,7 +393,7 @@
                                                 </div>
                                                 <h3 class="font-bold text-slate-900">Michael T.</h3>
                                                 <p class="text-slate-600 text-sm">Privacy-Conscious User</p>
-                                                <p class="text-slate-500 text-xs mt-1">Germany • 6 months using Say It</p>
+                                                <p class="text-slate-600 text-xs mt-1">Germany • 6 months using Say It</p>
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -414,7 +412,6 @@
                                 </div>
                             </li>
                             
-                            <!-- Testimonial 4: Maria S. -->
                             <li class="splide__slide" role="group" aria-roledescription="slide">
                                 <div class="testimonial-card rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                     <div class="quote-mark" aria-hidden="true">"</div>
@@ -433,7 +430,7 @@
                                                 </div>
                                                 <h3 class="font-bold text-slate-900">Maria S.</h3>
                                                 <p class="text-slate-600 text-sm">Student</p>
-                                                <p class="text-slate-500 text-xs mt-1">Brazil • 8 months using Say It</p>
+                                                <p class="text-slate-600 text-xs mt-1">Brazil • 8 months using Say It</p>
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -452,7 +449,6 @@
                                 </div>
                             </li>
                             
-                            <!-- Testimonial 5: David L. -->
                             <li class="splide__slide" role="group" aria-roledescription="slide">
                                 <div class="testimonial-card rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                     <div class="quote-mark" aria-hidden="true">"</div>
@@ -471,7 +467,7 @@
                                                 </div>
                                                 <h3 class="font-bold text-slate-900">David L.</h3>
                                                 <p class="text-slate-600 text-sm">Frequent Traveler</p>
-                                                <p class="text-slate-500 text-xs mt-1">United Kingdom • 1.5 years using Say It</p>
+                                                <p class="text-slate-600 text-xs mt-1">United Kingdom • 1.5 years using Say It</p>
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -490,7 +486,6 @@
                                 </div>
                             </li>
                             
-                            <!-- Testimonial 6: Elena R. -->
                             <li class="splide__slide" role="group" aria-roledescription="slide">
                                 <div class="testimonial-card rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
                                     <div class="quote-mark" aria-hidden="true">"</div>
@@ -509,7 +504,7 @@
                                                 </div>
                                                 <h3 class="font-bold text-slate-900">Elena R.</h3>
                                                 <p class="text-slate-600 text-sm">Multilingual User</p>
-                                                <p class="text-slate-500 text-xs mt-1">Spain • 4 months using Say It</p>
+                                                <p class="text-slate-600 text-xs mt-1">Spain • 4 months using Say It</p>
                                             </div>
                                         </div>
                                         <div class="flex-1">
@@ -533,7 +528,6 @@
             </div>
         </section>
 
-        <!-- User Satisfaction Chart -->
         <section class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
@@ -546,12 +540,10 @@
                 </div>
                 
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <!-- Chart -->
                     <div class="fade-in">
                         <div id="satisfaction-chart" class="w-full h-[400px]" role="img" aria-label="User Satisfaction Chart"></div>
                     </div>
                     
-                    <!-- Key Metrics -->
                     <div class="space-y-6 fade-in">
                         <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
                             <h3 class="text-xl font-bold text-slate-900 mb-4">
@@ -634,7 +626,6 @@
             </div>
         </section>
 
-        <!-- Success Stories -->
         <section class="py-20 bg-slate-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 fade-in">
@@ -647,7 +638,6 @@
                 </div>
                 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Success Story 1 -->
                     <div class="bg-white rounded-xl p-6 shadow-lg slide-up border border-slate-200">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mr-4">
@@ -663,13 +653,12 @@
                             Now I convert all my textbooks to audio and listen while commuting. My grades improved by 25% 
                             and I feel more confident in my studies."
                         </p>
-                        <div class="flex justify-between text-sm text-slate-500">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>25% Grade Improvement</span>
                             <span>3 Hours Daily Usage</span>
                         </div>
                     </div>
                     
-                    <!-- Success Story 2 -->
                     <div class="bg-white rounded-xl p-6 shadow-lg slide-up border border-slate-200">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-green-100 text-green-700 rounded-full flex items-center justify-center mr-4">
@@ -685,13 +674,12 @@
                             Say It gives me the independence to navigate any situation confidently. I've visited 12 countries 
                             this year without accessibility concerns."
                         </p>
-                        <div class="flex justify-between text-sm text-slate-500">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>12 Countries Visited</span>
                             <span>Daily Business Use</span>
                         </div>
                     </div>
                     
-                    <!-- Success Story 3 -->
                     <div class="bg-white rounded-xl p-6 shadow-lg slide-up border border-slate-200">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-pink-100 text-pink-700 rounded-full flex items-center justify-center mr-4">
@@ -707,13 +695,12 @@
                             read cooking instructions, and handle daily tasks that require reading. It's given me back my confidence 
                             and independence at home."
                         </p>
-                        <div class="flex justify-between text-sm text-slate-500">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>100% Medication Accuracy</span>
                             <span>Independent Living</span>
                         </div>
                     </div>
                     
-                    <!-- Success Story 4 -->
                     <div class="bg-white rounded-xl p-6 shadow-lg slide-up border border-slate-200">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center mr-4">
@@ -729,13 +716,12 @@
                             and adjust the speed to match my learning pace. My German pronunciation improved dramatically in just 
                             3 months of regular use."
                         </p>
-                        <div class="flex justify-between text-sm text-slate-500">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>3 Languages Practiced</span>
                             <span>40% Pronunciation Improvement</span>
                         </div>
                     </div>
                     
-                    <!-- Success Story 5 -->
                     <div class="bg-white rounded-xl p-6 shadow-lg slide-up border border-slate-200">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center mr-4">
@@ -751,13 +737,12 @@
                             for sensitive documents without worrying about data breaches. It's the perfect balance of functionality 
                             and privacy protection."
                         </p>
-                        <div class="flex justify-between text-sm text-slate-500">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>100% Privacy Compliance</span>
                             <span>Sensitive Document Use</span>
                         </div>
                     </div>
                     
-                    <!-- Success Story 6 -->
                     <div class="bg-white rounded-xl p-6 shadow-lg slide-up border border-slate-200">
                         <div class="flex items-center mb-4">
                             <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-full flex items-center justify-center mr-4">
@@ -773,7 +758,7 @@
                             my family relationships by allowing me to participate fully in family activities that involve reading. 
                             It's more than an app - it's independence."
                         </p>
-                        <div class="flex justify-between text-sm text-slate-500">
+                        <div class="flex justify-between text-sm text-slate-600">
                             <span>Family Activity Participation</span>
                             <span>Improved Relationships</span>
                         </div>
@@ -782,7 +767,6 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
         <section class="py-20 bg-blue-700">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-4xl font-bold text-white mb-6">
@@ -810,7 +794,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
@@ -830,10 +813,8 @@
         </div>
     </footer>
 
-    <!-- Main JavaScript -->
     <script src="main.js"></script>
     
-    <!-- Testimonials-specific JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize satisfaction chart
