@@ -31,6 +31,47 @@
             font-family: 'Inter', sans-serif;
         }
         
+        /* --- [FIX 2.4.1] WCAG Bypass Block --- */
+        .skip-link {
+            position: absolute;
+            top: -100px; /* Hidden off-screen */
+            left: 1rem;
+            background: rgb(var(--color-primary-dark));
+            color: white;
+            padding: 0.75rem 1.25rem;
+            z-index: 9999;
+            transition: top 0.3s ease;
+            font-weight: 600;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .skip-link:focus {
+            top: 0; /* Becomes visible on focus */
+        }
+
+        /* --- [FIX 2.4.7] WCAG Focus Visible --- */
+        *:focus-visible {
+            outline: 3px solid rgb(var(--color-primary-dark));
+            outline-offset: 3px;
+            border-radius: 4px;
+            box-shadow: 0 0 0 5px rgba(var(--color-primary-light), 0.5);
+        }
+        
+        .focusable-inset:focus-visible {
+             outline: none;
+             box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
+        }
+        
+        .splide__arrow:focus-visible {
+            outline-offset: 2px;
+            background: rgb(var(--color-primary));
+        }
+        .splide__pagination__page:focus-visible {
+            outline-offset: 2px;
+            background: rgb(var(--color-primary-light));
+        }
+        
+        /* --- Original Styles Below --- */
         .gradient-text {
             color: rgb(var(--color-primary-light));
         }
@@ -145,8 +186,9 @@
             width: 100%;
         }
 
+        /* --- [FIX 1.4.3] WCAG Contrast --- */
         .nav-link.active {
-            color: rgb(var(--color-primary-light));
+            color: rgb(var(--color-primary));
         }
         
         .contact-card {
@@ -174,27 +216,17 @@
         .glow-button:hover {
             background-color: rgb(var(--color-primary));
         }
-
-        /* WCAG: Visible focus states for all interactive elements */
-        .focusable {
-            transition: outline-offset 0.1s ease, box-shadow 0.2s ease;
-            outline: 2px solid transparent;
-            outline-offset: 2px;
-        }
-        .focusable:focus-visible {
-            outline-offset: 0px;
-            box-shadow: 0 0 0 3px rgba(var(--color-primary-light), 0.7);
-        }
-        .focusable-inset:focus-visible {
-             box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
-        }
+        
+        /* Removed old .focusable rules, replaced by global *:focus-visible */
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="flex items-center space-x-2 focusable rounded-lg" aria-label="Say It Homepage">
+                <a href="index.html" class="flex items-center space-x-2 rounded-lg" aria-label="Say It Homepage">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
                     </div>
@@ -202,16 +234,16 @@
                 </a>
                 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="nav-link focusable rounded-md">Home</a>
-                    <a href="features.html" class="nav-link focusable rounded-md">Features</a>
-                    <a href="testimonials.html" class="nav-link focusable rounded-md">Testimonials</a>
-                    <a href="about.html" class="nav-link focusable rounded-md active">About</a>
-                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <a href="index.html" class="nav-link rounded-md">Home</a>
+                    <a href="features.html" class="nav-link rounded-md">Features</a>
+                    <a href="testimonials.html" class="nav-link rounded-md">Testimonials</a>
+                    <a href="about.html" class="nav-link rounded-md active">About</a>
+                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
                 
-                <button id="mobile-menu-toggle" class="md:hidden p-2 focusable rounded-md" aria-controls="mobile-menu" aria-expanded="false">
+                <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-md" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <i class="fas fa-bars text-slate-600" aria-hidden="true"></i>
                 </button>
@@ -219,11 +251,11 @@
             
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <a href="index.html" class="nav-link focusable rounded-md py-2">Home</a>
-                    <a href="features.html" class="nav-link focusable rounded-md py-2">Features</a>
-                    <a href="testimonials.html" class="nav-link focusable rounded-md py-2">Testimonials</a>
-                    <a href="about.html" class="nav-link focusable rounded-md py-2 active">About</a>
-                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium mt-2">
+                    <a href="index.html" class="nav-link rounded-md py-2">Home</a>
+                    <a href="features.html" class="nav-link rounded-md py-2">Features</a>
+                    <a href="testimonials.html" class="nav-link rounded-md py-2">Testimonials</a>
+                    <a href="about.html" class="nav-link rounded-md py-2 active">About</a>
+                    <button class="download-btn glow-button text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -323,7 +355,7 @@
 
                     <div class="mt-8">
                         <a href="mailto:omar.ashraf.edu@gmail.com"
-                            class="inline-flex items-center glow-button focusable text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all"
+                            class="inline-flex items-center glow-button text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all"
                             aria-label="Email the founder, Omar Abdelnaby">
                             <i class="fas fa-envelope mr-2" aria-hidden="true"></i>Drop a line
                         </a>
@@ -548,7 +580,7 @@
                         <p class="text-slate-600 mb-4">
                             Direct line to our founder for partnership inquiries, media requests, or technical questions.
                         </p>
-                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium focusable rounded-sm" aria-label="Email Omar Abdelnaby">
+                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium rounded-sm" aria-label="Email Omar Abdelnaby">
                             <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
                             omar.ashraf.edu@gmail.com
                         </a>
@@ -561,8 +593,8 @@
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Support Team</h3>
                         <p class="text-slate-600 mb-4">
                             Get help with the app, report issues, or suggest new features for future updates.
-                        </p>
-                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium focusable rounded-sm" aria-label="Email the Support Team">
+                        </g>
+                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium rounded-sm" aria-label="Email the Support Team">
                             <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
                             omar.ashraf.edu@gmail.com
                         </a>
@@ -576,7 +608,7 @@
                         <p class="text-slate-600 mb-4">
                             Explore collaboration opportunities with accessibility organizations and advocacy groups.
                         </p>
-                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium focusable rounded-sm" aria-label="Email about Partnerships">
+                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium rounded-sm" aria-label="Email about Partnerships">
                             <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
                             omar.ashraf.edu@gmail.com
                         </a>
@@ -595,11 +627,11 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="download-btn glow-button bg-white text-blue-700 focusable px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                    <button class="download-btn glow-button bg-white text-blue-700 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
                         <i class="fas fa-download mr-2" aria-hidden="true"></i>
                         Download Free APK
                     </button>
-                    <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all focusable">
+                    <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all">
                         <i class="fas fa-rocket mr-2" aria-hidden="true"></i>
                         Explore Features
                     </a>
