@@ -15,15 +15,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
+        :root {
+            /* New Color Theme */
+            --color-primary: 29 78 216; /* blue-700 */
+            --color-primary-light: 59 130 246; /* blue-600 */
+            --color-primary-dark: 30 64 175; /* blue-800 */
+            --color-bg-light: 248 250 252; /* slate-50 */
+            --color-bg-dark: 15 23 42; /* slate-900 */
+            --color-text-light: 226 232 240; /* slate-200 */
+            --color-text-medium: 71 85 105; /* slate-500 */
+            --color-text-dark: 30 41 59; /* slate-800 */
+        }
+
         * {
             font-family: 'Inter', sans-serif;
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: rgb(var(--color-primary-light));
         }
         
         .fade-in {
@@ -49,24 +58,25 @@
         }
         
         .founder-card {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
-            backdrop-filter: blur(10px);
+            background-color: rgb(var(--color-bg-light));
+            border: 1px solid #e2e8f0; /* slate-200 */
             transition: all 0.3s ease;
         }
         
         .founder-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 40px rgba(var(--color-primary-dark), 0.1);
         }
         
         .mission-card {
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            background-color: white;
+            border: 1px solid #e2e8f0; /* slate-200 */
         }
         
         .mission-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(var(--color-primary-dark), 0.1);
         }
         
         .partner-logo {
@@ -91,7 +101,7 @@
             top: 0.5rem;
             width: 12px;
             height: 12px;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            background-color: rgb(var(--color-primary-light));
             border-radius: 50%;
         }
         
@@ -102,7 +112,7 @@
             top: 1.5rem;
             width: 2px;
             height: calc(100% - 1rem);
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            background-color: rgb(var(--color-primary-light));
             opacity: 0.3;
         }
         
@@ -113,6 +123,10 @@
         .nav-link {
             position: relative;
             transition: color 0.3s ease;
+            color: var(--color-text-medium);
+        }
+        .nav-link:hover {
+            color: var(--color-text-dark);
         }
         
         .nav-link::after {
@@ -122,12 +136,17 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            background-color: rgb(var(--color-primary-light));
             transition: width 0.3s ease;
         }
         
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
+        }
+
+        .nav-link.active {
+            color: rgb(var(--color-primary-light));
         }
         
         .contact-card {
@@ -136,68 +155,75 @@
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            border: 1px solid #e2e8f0; /* slate-200 */
         }
         
         .contact-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(var(--color-primary-dark), 0.1);
         }
 
         .glow-button {
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            background-color: rgb(var(--color-primary-light));
+            color: white;
         }
-        
-        .glow-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+
+        .glow-button:hover {
+            background-color: rgb(var(--color-primary));
         }
-        
-        .glow-button:hover::before {
-            left: 100%;
+
+        /* WCAG: Visible focus states for all interactive elements */
+        .focusable {
+            transition: outline-offset 0.1s ease, box-shadow 0.2s ease;
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+        }
+        .focusable:focus-visible {
+            outline-offset: 0px;
+            box-shadow: 0 0 0 3px rgba(var(--color-primary-light), 0.7);
+        }
+        .focusable-inset:focus-visible {
+             box-shadow: inset 0 0 0 3px rgba(var(--color-primary-light), 0.7);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+<body class="bg-slate-50 text-slate-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-volume-up text-white text-sm"></i>
+                <a href="index.html" class="flex items-center space-x-2 focusable rounded-lg" aria-label="Say It Homepage">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
                     </div>
-                    <span class="text-xl font-bold text-gray-800">Say It</span>
-                </div>
+                    <span class="text-xl font-bold text-slate-900">Say It</span>
+                </a>
                 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-gray-600 hover:text-gray-800">Home</a>
-                    <a href="features.html" class="text-gray-600 hover:text-gray-800">Features</a>
-                    <a href="testimonials.html" class="text-gray-600 hover:text-gray-800">Testimonials</a>
-                    <a href="#about" class="text-red-400 font-medium">About</a>
-                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
+                    <a href="index.html" class="nav-link focusable rounded-md">Home</a>
+                    <a href="features.html" class="nav-link focusable rounded-md">Features</a>
+                    <a href="testimonials.html" class="nav-link focusable rounded-md">Testimonials</a>
+                    <a href="about.html" class="nav-link focusable rounded-md active">About</a>
+                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all">
                         Download APK
                     </button>
                 </div>
                 
-                <button id="mobile-menu-toggle" class="md:hidden p-2">
-                    <i class="fas fa-bars text-gray-600"></i>
+                <button id="mobile-menu-toggle" class="md:hidden p-2 focusable rounded-md" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <i class="fas fa-bars text-slate-600" aria-hidden="true"></i>
                 </button>
             </div>
             
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-2">
-                    <a href="index.html" class="text-gray-600 hover:text-gray-800 py-2">Home</a>
-                    <a href="features.html" class="text-gray-600 hover:text-gray-800 py-2">Features</a>
-                    <a href="testimonials.html" class="text-gray-600 hover:text-gray-800 py-2">Testimonials</a>
-                    <a href="#about" class="text-red-400 font-medium py-2">About</a>
-                    <button class="download-btn glow-button bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-2 rounded-lg font-medium mt-2">
+                    <a href="index.html" class="nav-link focusable rounded-md py-2">Home</a>
+                    <a href="features.html" class="nav-link focusable rounded-md py-2">Features</a>
+                    <a href="testimonials.html" class="nav-link focusable rounded-md py-2">Testimonials</a>
+                    <a href="about.html" class="nav-link focusable rounded-md py-2 active">About</a>
+                    <button class="download-btn glow-button focusable text-white px-6 py-2 rounded-lg font-medium mt-2">
                         Download APK
                     </button>
                 </div>
@@ -205,405 +231,406 @@
         </div>
     </nav>
 
-    <section class="pt-24 pb-12 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-5xl font-bold mb-6">
-                    About <span class="gradient-text">Say It</span>
-                </h1>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Discover our mission to empower accessibility through technology, meet our founder, 
-                    and learn about our commitment to privacy and inclusion for all.
-                </p>
+    <main id="main-content">
+        <section class="pt-24 pb-12 bg-slate-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-5xl font-bold mb-6">
+                        About <span class="gradient-text">Say It</span>
+                    </h1>
+                    <p class="text-xl text-slate-200 max-w-3xl mx-auto">
+                        Discover our mission to empower accessibility through technology, meet our founder, 
+                        and learn about our commitment to privacy and inclusion for all.
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="about" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    Our <span class="gradient-text">Mission</span>
-                </h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto">
-                    We believe that everyone deserves equal access to information, regardless of their visual abilities. 
-                    Our mission is to break down barriers and create a more inclusive world through innovative, 
-                    privacy-focused technology.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="mission-card bg-white rounded-xl p-8 shadow-lg text-center slide-up">
-                    <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white mx-auto mb-6">
-                        <i class="fas fa-universal-access text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">♿ Accessibility First</h3>
-                    <p class="text-gray-600">
-                        We design every feature with accessibility at the core, ensuring that our technology 
-                        serves those who need it most and creates truly inclusive experiences.
+        <section id="about" class="py-20 bg-white" aria-labelledby="mission-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 id="mission-heading" class="text-4xl font-bold text-slate-900 mb-4">
+                        Our <span class="gradient-text">Mission</span>
+                    </h2>
+                    <p class="text-xl text-slate-600 max-w-4xl mx-auto">
+                        We believe that everyone deserves equal access to information, regardless of their visual abilities. 
+                        Our mission is to break down barriers and create a more inclusive world through innovative, 
+                        privacy-focused technology.
                     </p>
                 </div>
                 
-                <div class="mission-card bg-white rounded-xl p-8 shadow-lg text-center slide-up">
-                    <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white mx-auto mb-6">
-                        <i class="fas fa-shield-alt text-2xl"></i>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="mission-card rounded-xl p-8 shadow-lg text-center slide-up">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-universal-access text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">♿ Accessibility First</h3>
+                        <p class="text-slate-600">
+                            We design every feature with accessibility at the core, ensuring that our technology 
+                            serves those who need it most and creates truly inclusive experiences.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">🔒 Privacy by Design</h3>
-                    <p class="text-gray-600">
-                        Your privacy is non-negotiable. All processing happens locally on your device, 
-                        ensuring your personal information never leaves your hands.
+                    
+                    <div class="mission-card rounded-xl p-8 shadow-lg text-center slide-up">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-shield-alt text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">🔒 Privacy by Design</h3>
+                        <p class="text-slate-600">
+                            Your privacy is non-negotiable. All processing happens locally on your device, 
+                            ensuring your personal information never leaves your hands.
+                        </p>
+                    </div>
+                    
+                    <div class="mission-card rounded-xl p-8 shadow-lg text-center slide-up">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-lightbulb text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">💡 Continuous Innovation</h3>
+                        <p class="text-slate-600">
+                            We're constantly pushing the boundaries of what's possible in accessibility technology, 
+                            bringing cutting-edge AI to serve human needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-slate-50" aria-labelledby="founder-heading">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+                <h2 id="founder-heading" class="text-4xl font-bold text-slate-900 mb-6">
+                About the <span class="gradient-text">Founder</span>
+                </h2>
+
+                <div class="founder-card rounded-2xl p-8 lg:p-12 fade-in">
+
+                    <h3 class="text-3xl font-bold text-slate-900 mb-2">Omar Abdelnaby</h3>
+                    <p class="text-blue-600 font-semibold mb-6">High-school senior, CS & accessibility nerd</p>
+
+                    <div class="space-y-4 text-slate-700 leading-relaxed">
+                        <p>
+                        When my grandmother’s vision faded, she couldn’t read her medicine bottles—so I built
+                        <strong>Say It</strong>, an offline text-to-speech app that now helps 40 000+ people in 18 countries.
+                        </p>
+                        <p>
+                        I taught myself Machine learning, shipped the app at 17, and still balance coding with piano and caregiving.
+                        </p>
+                        <p>
+                        My next stop: college in Fall ’26 to keep turning empathy into code.
+                        </p>
+                    </div>
+
+                    <div class="mt-8">
+                        <a href="mailto:omar.ashraf.edu@gmail.com"
+                            class="inline-flex items-center glow-button focusable text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all"
+                            aria-label="Email the founder, Omar Abdelnaby">
+                            <i class="fas fa-envelope mr-2" aria-hidden="true"></i>Drop a line
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white" aria-labelledby="journey-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 id="journey-heading" class="text-4xl font-bold text-slate-900 mb-4">
+                        Our <span class="gradient-text">Journey</span>
+                    </h2>
+                    <p class="text-xl text-slate-600">
+                        From a personal project to a global accessibility solution.
                     </p>
                 </div>
                 
-                <div class="mission-card bg-white rounded-xl p-8 shadow-lg text-center slide-up">
-                    <div class="w-16 h-16 bg-gradient-to-r from-pink-400 to-red-500 rounded-full flex items-center justify-center text-white mx-auto mb-6">
-                        <i class="fas fa-lightbulb text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">💡 Continuous Innovation</h3>
-                    <p class="text-gray-600">
-                        We're constantly pushing the boundaries of what's possible in accessibility technology, 
-                        bringing cutting-edge AI to serve human needs.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gray-50">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-
-    <h2 class="text-4xl font-bold text-gray-800 mb-6">
-      About the <span class="gradient-text">Founder</span>
-    </h2>
-
-    <div class="founder-card rounded-2xl p-8 lg:p-12 fade-in">
-
-      <h3 class="text-3xl font-bold text-gray-800 mb-2">Omar Abdelnaby</h3>
-      <p class="text-red-400 font-semibold mb-6">High-school senior, CS & accessibility nerd</p>
-
-      <div class="space-y-4 text-gray-700 leading-relaxed">
-        <p>
-          When my grandmother’s vision faded, she couldn’t read her medicine bottles—so I built
-          <strong>Say It</strong>, an offline text-to-speech app that now helps 40 000+ people in 18 countries.
-        </p>
-        <p>
-          I taught myself Machine learning, shipped the app at 17, and still balance coding with piano and caregiving.
-        </p>
-        <p>
-          My next stop: college in Fall ’26 to keep turning empathy into code.
-        </p>
-      </div>
-
-      <div class="mt-8">
-        <a href="mailto:omar.ashraf.edu@gmail.com"
-           class="inline-flex items-center bg-gradient-to-r from-red-400 to-teal-400 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
-          <i class="fas fa-envelope mr-2"></i>Drop a line
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    Our <span class="gradient-text">Journey</span>
-                </h2>
-                <p class="text-xl text-gray-600">
-                    From a personal project to a global accessibility solution.
-                </p>
-            </div>
-            
-            <div class="max-w-4xl mx-auto">
-                <div class="space-y-8 fade-in">
-                    <div class="timeline-item">
-                        <div class="bg-white rounded-xl p-6 shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <div class="text-2xl font-bold text-red-400 mr-4">2023</div>
-                                <h3 class="text-xl font-bold text-gray-800">Project Inception</h3>
+                <div class="max-w-4xl mx-auto">
+                    <div class="space-y-8 fade-in">
+                        <div class="timeline-item">
+                            <div class="bg-white rounded-xl p-6 shadow-lg border border-slate-200">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-2xl font-bold text-blue-600 mr-4">2023</div>
+                                    <h3 class="text-xl font-bold text-slate-900">Project Inception</h3>
+                                </div>
+                                <p class="text-slate-600">
+                                    Omar begins developing Say It as a personal project to help his grandmother read 
+                                    after her vision loss. The first prototype focuses on offline OCR and text-to-speech.
+                                </p>
                             </div>
-                            <p class="text-gray-600">
-                                Omar begins developing Say It as a personal project to help his grandmother read 
-                                after her vision loss. The first prototype focuses on offline OCR and text-to-speech.
-                            </p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="bg-white rounded-xl p-6 shadow-lg border border-slate-200">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-2xl font-bold text-blue-600 mr-4">2024</div>
+                                    <h3 class="text-xl font-bold text-slate-900">Beta Testing</h3>
+                                </div>
+                                <p class="text-slate-600">
+                                    After months of development and testing with local accessibility organizations, 
+                                    Say It launches beta testing with 500 users in egyptian retirement homes.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="bg-white rounded-xl p-6 shadow-lg border border-slate-200">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-2xl font-bold text-blue-600 mr-4">Late 2024</div>
+                                    <h3 class="text-xl font-bold text-slate-900">Official Launch</h3>
+                                </div>
+                                <p class="text-slate-600">
+                                    Say It officially launches on Android with support for 10 languages and immediately 
+                                    gains traction in the accessibility community. 1,500 users join in the first month.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="bg-white rounded-xl p-6 shadow-lg border border-slate-200">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-2xl font-bold text-blue-600 mr-4">2025</div>
+                                    <h3 class="text-xl font-bold text-slate-900">Global Impact</h3>
+                                </div>
+                                <p class="text-slate-600">
+                                    Say It reaches 40,000+ users across 18 countries. Partnerships with accessibility 
+                                    organizations in progress, and the app becomes a trusted tool in the visually impaired community.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="bg-blue-600 rounded-xl p-6 text-white">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-2xl font-bold mr-4">Future</div>
+                                    <h3 class="text-xl font-bold">Expanding Horizons</h3>
+                                </div>
+                                <p>
+                                    We're working on iOS support, additional languages, and partnerships to serve 
+                                    even more users worldwide. The journey continues!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-slate-50" aria-labelledby="partners-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 id="partners-heading" class="text-4xl font-bold text-slate-900 mb-4">
+                        Outreach <span class="gradient-text">Partners</span>
+                    </h2>
+                    <p class="text-xl text-slate-600">
+                        We're reaching out to leading accessibility organizations to explore collaboration opportunities.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up border border-slate-200">
+                        <div class="w-20 h-20 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-eye text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Sightsavers</h3>
+                        <p class="text-slate-600 mb-4">
+                            Global organization working to prevent avoidable blindness and promote equal opportunities 
+                            for people with disabilities.
+                        </p>
+                        <div class="text-sm text-slate-500">
+                            <p><strong>Proposed Collaboration:</strong></p>
+                            <p>• User testing and feedback</p>
+                            <p>• Accessibility standards compliance</p>
+                            <p>• Community outreach programs</p>
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
-                        <div class="bg-white rounded-xl p-6 shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <div class="text-2xl font-bold text-teal-400 mr-4">2024</div>
-                                <h3 class="text-xl font-bold text-gray-800">Beta Testing</h3>
-                            </div>
-                            <p class="text-gray-600">
-                                After months of development and testing with local accessibility organizations, 
-                                Say It launches beta testing with 500 users in egyptian retirement homes.
-                            </p>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up border border-slate-200">
+                        <div class="w-20 h-20 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user-friends text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">HelpAge International</h3>
+                        <p class="text-slate-600 mb-4">
+                            Global network helping older people claim their rights, challenge discrimination, 
+                            and overcome poverty.
+                        </p>
+                        <div class="text-sm text-slate-500">
+                            <p><strong>Proposed Collaboration:</strong></p>
+                            <p>• Elderly user experience optimization</p>
+                            <p>• Large print and voice guidance</p>
+                            <p>• Senior community programs</p>
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
-                        <div class="bg-white rounded-xl p-6 shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <div class="text-2xl font-bold text-blue-400 mr-4">Late 2024</div>
-                                <h3 class="text-xl font-bold text-gray-800">Official Launch</h3>
-                            </div>
-                            <p class="text-gray-600">
-                                Say It officially launches on Android with support for 10 languages and immediately 
-                                gains traction in the accessibility community. 1,500 users join in the first month.
-                            </p>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up border border-slate-200">
+                        <div class="w-20 h-20 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-hands-helping text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">NAID Egypt</h3>
+                        <p class="text-slate-600 mb-4">
+                            Egyptian organization dedicated to supporting people with visual impairments 
+                            through education, rehabilitation, and advocacy.
+                        </p>
+                        <div class="text-sm text-slate-500">
+                            <p><strong>Proposed Collaboration:</strong></p>
+                            <p>• Arabic language optimization</p>
+                            <p>• Local user training programs</p>
+                            <p>• Regional accessibility initiatives</p>
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
-                        <div class="bg-white rounded-xl p-6 shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <div class="text-2xl font-bold text-green-400 mr-4">2025</div>
-                                <h3 class="text-xl font-bold text-gray-800">Global Impact</h3>
-                            </div>
-                            <p class="text-gray-600">
-                                Say It reaches 40,000+ users across 18 countries. Partnerships with accessibility 
-                                organizations in progress, and the app becomes a trusted tool in the visually impaired community.
-                            </p>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up border border-slate-200">
+                        <div class="w-20 h-20 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-star text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Baseera</h3>
+                        <p class="text-slate-600 mb-4">
+                            Organization providing comprehensive support and services for people with visual 
+                            impairments in the MENA region.
+                        </p>
+                        <div class="text-sm text-slate-500">
+                            <p><strong>Proposed Collaboration:</strong></p>
+                            <p>• Regional language support</p>
+                            <p>• Cultural accessibility adaptation</p>
+                            <p>• Community feedback integration</p>
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
-                        <div class="bg-gradient-to-r from-red-400 to-teal-400 rounded-xl p-6 text-white">
-                            <div class="flex items-center mb-4">
-                                <div class="text-2xl font-bold mr-4">Future</div>
-                                <h3 class="text-xl font-bold">Expanding Horizons</h3>
-                            </div>
-                            <p>
-                                We're working on iOS support, additional languages, and partnerships to serve 
-                                even more users worldwide. The journey continues!
-                            </p>
+                    <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up border border-slate-200">
+                        <div class="w-20 h-20 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-wheelchair text-2xl" aria-hidden="true"></i>
                         </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Helm</h3>
+                        <p class="text-slate-600 mb-4">
+                            Organization promoting the rights and inclusion of people with disabilities 
+                            in all aspects of society.
+                        </p>
+                        <div class="text-sm text-slate-500">
+                            <p><strong>Proposed Collaboration:</strong></p>
+                            <p>• Universal design principles</p>
+                            <p>• Disability rights advocacy</p>
+                            <p>• Inclusive technology development</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-600 rounded-xl p-6 text-white text-center slide-up">
+                        <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-plus text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">More Partnerships</h3>
+                        <p class="mb-4">
+                            We're actively expanding our network of accessibility partners worldwide.
+                        </p>
+                        <p class="text-sm">
+                            Interested in partnering with us? <br>
+                            Contact Omar to explore collaboration opportunities.
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    Outreach <span class="gradient-text">Partners</span>
-                </h2>
-                <p class="text-xl text-gray-600">
-                    We're reaching out to leading accessibility organizations to explore collaboration opportunities.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up">
-                    <div class="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-eye text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sightsavers</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global organization working to prevent avoidable blindness and promote equal opportunities 
-                        for people with disabilities.
+        <section class="py-20 bg-white" aria-labelledby="contact-heading">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 fade-in">
+                    <h2 id="contact-heading" class="text-4xl font-bold text-slate-900 mb-4">
+                        Get in <span class="gradient-text">Touch</span>
+                    </h2>
+                    <p class="text-xl text-slate-600">
+                        Have questions, suggestions, or want to collaborate? We'd love to hear from you.
                     </p>
-                    <div class="text-sm text-gray-500">
-                        <p><strong>Proposed Collaboration:</strong></p>
-                        <p>• User testing and feedback</p>
-                        <p>• Accessibility standards compliance</p>
-                        <p>• Community outreach programs</p>
-                    </div>
                 </div>
                 
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up">
-                    <div class="w-20 h-20 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-user-friends text-2xl"></i>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="contact-card text-center fade-in">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Contact Omar</h3>
+                        <p class="text-slate-600 mb-4">
+                            Direct line to our founder for partnership inquiries, media requests, or technical questions.
+                        </p>
+                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium focusable rounded-sm" aria-label="Email Omar Abdelnaby">
+                            <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
+                            omar.ashraf.edu@gmail.com
+                        </a>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">HelpAge International</h3>
-                    <p class="text-gray-600 mb-4">
-                        Global network helping older people claim their rights, challenge discrimination, 
-                        and overcome poverty.
-                    </p>
-                    <div class="text-sm text-gray-500">
-                        <p><strong>Proposed Collaboration:</strong></p>
-                        <p>• Elderly user experience optimization</p>
-                        <p>• Large print and voice guidance</p>
-                        <p>• Senior community programs</p>
+                    
+                    <div class="contact-card text-center fade-in">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-headset text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Support Team</h3>
+                        <p class="text-slate-600 mb-4">
+                            Get help with the app, report issues, or suggest new features for future updates.
+                        </p>
+                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium focusable rounded-sm" aria-label="Email the Support Team">
+                            <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
+                            omar.ashraf.edu@gmail.com
+                        </a>
                     </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up">
-                    <div class="w-20 h-20 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-hands-helping text-2xl"></i>
+                    
+                    <div class="contact-card text-center fade-in">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-handshake text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Partnerships</h3>
+                        <p class="text-slate-600 mb-4">
+                            Explore collaboration opportunities with accessibility organizations and advocacy groups.
+                        </p>
+                        <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-600 hover:text-blue-700 font-medium focusable rounded-sm" aria-label="Email about Partnerships">
+                            <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
+                            omar.ashraf.edu@gmail.com
+                        </a>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">NAID Egypt</h3>
-                    <p class="text-gray-600 mb-4">
-                        Egyptian organization dedicated to supporting people with visual impairments 
-                        through education, rehabilitation, and advocacy.
-                    </p>
-                    <div class="text-sm text-gray-500">
-                        <p><strong>Proposed Collaboration:</strong></p>
-                        <p>• Arabic language optimization</p>
-                        <p>• Local user training programs</p>
-                        <p>• Regional accessibility initiatives</p>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up">
-                    <div class="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-star text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Baseera</h3>
-                    <p class="text-gray-600 mb-4">
-                        Organization providing comprehensive support and services for people with visual 
-                        impairments in the MENA region.
-                    </p>
-                    <div class="text-sm text-gray-500">
-                        <p><strong>Proposed Collaboration:</strong></p>
-                        <p>• Regional language support</p>
-                        <p>• Cultural accessibility adaptation</p>
-                        <p>• Community feedback integration</p>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl p-6 shadow-lg text-center slide-up">
-                    <div class="w-20 h-20 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-wheelchair text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Helm</h3>
-                    <p class="text-gray-600 mb-4">
-                        Organization promoting the rights and inclusion of people with disabilities 
-                        in all aspects of society.
-                    </p>
-                    <div class="text-sm text-gray-500">
-                        <p><strong>Proposed Collaboration:</strong></p>
-                        <p>• Universal design principles</p>
-                        <p>• Disability rights advocacy</p>
-                        <p>• Inclusive technology development</p>
-                    </div>
-                </div>
-                
-                <div class="bg-gradient-to-r from-red-400 to-teal-400 rounded-xl p-6 text-white text-center slide-up">
-                    <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-plus text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">More Partnerships</h3>
-                    <p class="mb-4">
-                        We're actively expanding our network of accessibility partners worldwide.
-                    </p>
-                    <p class="text-sm">
-                        Interested in partnering with us? <br>
-                        Contact Omar to explore collaboration opportunities.
-                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">
-                    Get in <span class="gradient-text">Touch</span>
+        <section class="py-20 bg-blue-700" aria-labelledby="cta-heading-about">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 id="cta-heading-about" class="text-4xl font-bold text-white mb-6">
+                    Ready to Experience Say It?
                 </h2>
-                <p class="text-xl text-gray-600">
-                    Have questions, suggestions, or want to collaborate? We'd love to hear from you.
+                <p class="text-xl text-blue-100 mb-8">
+                    Join thousands of users who've already discovered the power of accessible, private text-to-speech technology.
                 </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="contact-card text-center fade-in">
-                    <div class="w-16 h-16 bg-gradient-to-r from-red-400 to-teal-400 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-user text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Contact Omar</h3>
-                    <p class="text-gray-600 mb-4">
-                        Direct line to our founder for partnership inquiries, media requests, or technical questions.
-                    </p>
-                    <a href="omar.ashraf.edu@gmail.com" class="text-red-400 hover:text-red-500 font-medium">
-                        <i class="fas fa-envelope mr-2"></i>
-                        omar.ashraf.edu@gmail.com
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="download-btn glow-button bg-white text-blue-700 focusable px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
+                        <i class="fas fa-download mr-2" aria-hidden="true"></i>
+                        Download Free APK
+                    </button>
+                    <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all focusable">
+                        <i class="fas fa-rocket mr-2" aria-hidden="true"></i>
+                        Explore Features
                     </a>
                 </div>
                 
-                <div class="contact-card text-center fade-in">
-                    <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-headset text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Support Team</h3>
-                    <p class="text-gray-600 mb-4">
-                        Get help with the app, report issues, or suggest new features for future updates.
-                    </p>
-                    <a href="mailto:omar.ashraf.edu@gmail.com" class="text-blue-400 hover:text-blue-500 font-medium">
-                        <i class="fas fa-envelope mr-2"></i>
-                        omar.ashraf.edu@gmail.com
-                    </a>
-                </div>
-                
-                <div class="contact-card text-center fade-in">
-                    <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-                        <i class="fas fa-handshake text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Partnerships</h3>
-                    <p class="text-gray-600 mb-4">
-                        Explore collaboration opportunities with accessibility organizations and advocacy groups.
-                    </p>
-                    <a href="mailto:omar.ashraf.edu@gmail.com" class="text-green-400 hover:text-green-500 font-medium">
-                        <i class="fas fa-envelope mr-2"></i>
-                        omar.ashraf.edu@gmail.com
-                    </a>
-                </div>
+                <p class="text-sm text-blue-200 mt-4">
+                Empowering accessibility through technology • Privacy first, always
+                </p>
             </div>
-            
+        </section>
+    </main>
 
-        </div>
-    </section>
-
-    <section class="py-20 bg-gradient-to-r from-red-400 to-teal-400">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-white mb-6">
-                Ready to Experience Say It?
-            </h2>
-            <p class="text-xl text-white/90 mb-8">
-                Join thousands of users who've already discovered the power of accessible, private text-to-speech technology.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="download-btn glow-button bg-white text-gray-800 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all">
-                    <i class="fas fa-download mr-2"></i>
-                    Download Free APK
-                </button>
-                <a href="features.html" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/30 transition-all">
-                    <i class="fas fa-rocket mr-2"></i>
-                    Explore Features
-                </a>
-            </div>
-            
-            <p class="text-sm text-white/80 mt-4">
-            Empowering accessibility through technology • Privacy first, always
-            </p>
-        </div>
-    </section>
-
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="flex items-center justify-center space-x-2 mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-r from-red-400 to-teal-400 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-volume-up text-white text-sm"></i>
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-volume-up text-white text-sm" aria-hidden="true"></i>
                     </div>
-                    <span class="text-xl font-bold">Say It</span>
+                    <span class="text-xl font-bold text-slate-100">Say It</span>
                 </div>
-                <p class="text-gray-400 mb-4">
+                <p class="text-slate-400 mb-4">
                     Empowering accessibility through technology
                 </p>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-slate-500">
                     © 2025 Say It - All rights reserved • Built with accessibility in mind
                 </p>
             </div>
         </div>
     </footer>
 
-      <script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
